@@ -1,0 +1,97 @@
+/* styles/fonts.css */
+@import url("https://api.fontshare.com/v2/css?f[]=clash-display@700&f[]=inter@400,500,600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-clash: "Clash Display", system-ui, sans-serif;
+    --font-inter: "Inter", system-ui, sans-serif;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-white text-gray-900 font-sans antialiased;
+    font-feature-settings: "ss01", "ss02", "cv01", "cv02";
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-400;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-600;
+  }
+}
+
+@layer components {
+  /* Container utility */
+  .container-custom {
+    @apply mx-auto max-w-7xl px-6 sm:px-8 lg:px-12;
+  }
+
+  /* Typography utilities */
+  .text-hero {
+    @apply text-[96px] leading-[1.1] tracking-[-0.02em] font-display font-bold;
+  }
+
+  .text-h1 {
+    @apply text-[72px] leading-[1.1] tracking-[-0.02em] font-display font-bold;
+  }
+
+  .text-h2 {
+    @apply text-[48px] leading-[1.2] tracking-[-0.01em] font-display font-semibold;
+  }
+
+  .text-body-lg {
+    @apply text-[20px] leading-[1.5] font-sans font-normal text-gray-800;
+  }
+
+  .text-body {
+    @apply text-[18px] leading-[1.5] font-sans font-normal text-gray-700;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply bg-gray-900 text-white px-8 py-4 font-medium 
+           hover:bg-gray-800 transition-all duration-300 
+           inline-flex items-center gap-2 border border-gray-900;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent text-gray-900 px-8 py-4 font-medium 
+           border-2 border-gray-900 hover:bg-gray-900 hover:text-white 
+           transition-all duration-300 inline-flex items-center gap-2;
+  }
+
+  /* Card styles */
+  .card {
+    @apply bg-white border border-gray-200 rounded-none p-8 
+           hover:border-gray-400 transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:-translate-y-1;
+  }
+
+  /* Form styles */
+  .input-field {
+    @apply w-full px-4 py-3 border border-gray-300 
+           focus:border-gray-900 focus:ring-1 focus:ring-gray-900 
+           outline-none transition-all duration-300 bg-white;
+  }
+}
