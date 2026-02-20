@@ -1,7 +1,7 @@
 // src/components/Skills/Skills.jsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Code,
@@ -9,15 +9,12 @@ import {
   Server,
   Cloud,
   ChevronRight,
-  Sparkles,
   CheckCircle,
   Database,
   Cpu,
   GitBranch,
-  Zap,
   FileCode,
   Box,
-  Globe,
 } from "lucide-react";
 // If you installed react-icons, use these:
 
@@ -49,107 +46,110 @@ const Skills = () => {
   // Tech logo data with colors AND real icons
   // Updated techLogos array with all technologies
 
-  const techLogos = [
-    // Frontend Basics
-    {
-      name: "HTML",
-      color: "from-orange-500 to-orange-600",
-      icon: <SiHtml5 className="w-6 h-6 text-[#E34F26]" />,
-    },
-    {
-      name: "CSS",
-      color: "from-blue-500 to-blue-600",
-      icon: <SiCss3 className="w-6 h-6 text-[#1572B6]" />,
-    },
-    {
-      name: "JavaScript",
-      color: "from-yellow-400 to-yellow-500",
-      icon: <SiJavascript className="w-6 h-6 text-[#F7DF1E]" />,
-    },
+  const techLogos = useMemo(
+    () => [
+      // Frontend Basics
+      {
+        name: "HTML",
+        color: "from-orange-500 to-orange-600",
+        icon: <SiHtml5 className="w-6 h-6 text-[#E34F26]" />,
+      },
+      {
+        name: "CSS",
+        color: "from-blue-500 to-blue-600",
+        icon: <SiCss3 className="w-6 h-6 text-[#1572B6]" />,
+      },
+      {
+        name: "JavaScript",
+        color: "from-yellow-400 to-yellow-500",
+        icon: <SiJavascript className="w-6 h-6 text-[#F7DF1E]" />,
+      },
 
-    // Frontend Frameworks
-    {
-      name: "React",
-      color: "from-cyan-400 to-blue-500",
-      icon: <SiReact className="w-6 h-6 text-[#61DAFB]" />,
-    },
-    {
-      name: "Next.js",
-      color: "from-gray-900 to-gray-700",
-      icon: <SiNextdotjs className="w-6 h-6 text-black" />,
-    },
-    {
-      name: "TypeScript",
-      color: "from-blue-500 to-blue-700",
-      icon: <SiTypescript className="w-6 h-6 text-[#007ACC]" />,
-    },
-    {
-      name: "Tailwind CSS",
-      color: "from-teal-400 to-cyan-500",
-      icon: <SiTailwindcss className="w-6 h-6 text-[#06B6D4]" />,
-    },
+      // Frontend Frameworks
+      {
+        name: "React",
+        color: "from-cyan-400 to-blue-500",
+        icon: <SiReact className="w-6 h-6 text-[#61DAFB]" />,
+      },
+      {
+        name: "Next.js",
+        color: "from-gray-900 to-gray-700",
+        icon: <SiNextdotjs className="w-6 h-6 text-black" />,
+      },
+      {
+        name: "TypeScript",
+        color: "from-blue-500 to-blue-700",
+        icon: <SiTypescript className="w-6 h-6 text-[#007ACC]" />,
+      },
+      {
+        name: "Tailwind CSS",
+        color: "from-teal-400 to-cyan-500",
+        icon: <SiTailwindcss className="w-6 h-6 text-[#06B6D4]" />,
+      },
 
-    // Backend & APIs
-    {
-      name: "Node.js",
-      color: "from-green-500 to-green-700",
-      icon: <SiNodedotjs className="w-6 h-6 text-[#339933]" />,
-    },
-    {
-      name: "Express",
-      color: "from-gray-400 to-gray-600",
-      icon: <SiExpress className="w-6 h-6 text-black" />,
-    },
-    {
-      name: "Python",
-      color: "from-blue-400 to-yellow-500",
-      icon: <SiPython className="w-6 h-6 text-[#3776AB]" />,
-    },
+      // Backend & APIs
+      {
+        name: "Node.js",
+        color: "from-green-500 to-green-700",
+        icon: <SiNodedotjs className="w-6 h-6 text-[#339933]" />,
+      },
+      {
+        name: "Express",
+        color: "from-gray-400 to-gray-600",
+        icon: <SiExpress className="w-6 h-6 text-black" />,
+      },
+      {
+        name: "Python",
+        color: "from-blue-400 to-yellow-500",
+        icon: <SiPython className="w-6 h-6 text-[#3776AB]" />,
+      },
 
-    // Databases
-    {
-      name: "PostgreSQL",
-      color: "from-blue-400 to-blue-600",
-      icon: <SiPostgresql className="w-6 h-6 text-[#336791]" />,
-    },
-    {
-      name: "MongoDB",
-      color: "from-green-600 to-green-800",
-      icon: <SiMongodb className="w-6 h-6 text-[#47A248]" />,
-    },
-    {
-      name: "MySQL",
-      color: "from-blue-500 to-blue-700",
-      icon: <SiMysql className="w-6 h-6 text-[#4479A1]" />,
-    },
-    {
-      name: "SQL Server",
-      color: "from-red-500 to-red-700",
-      icon: <SiMicrosoftsqlserver className="w-6 h-6 text-[#CC2927]" />,
-    },
+      // Databases
+      {
+        name: "PostgreSQL",
+        color: "from-blue-400 to-blue-600",
+        icon: <SiPostgresql className="w-6 h-6 text-[#336791]" />,
+      },
+      {
+        name: "MongoDB",
+        color: "from-green-600 to-green-800",
+        icon: <SiMongodb className="w-6 h-6 text-[#47A248]" />,
+      },
+      {
+        name: "MySQL",
+        color: "from-blue-500 to-blue-700",
+        icon: <SiMysql className="w-6 h-6 text-[#4479A1]" />,
+      },
+      {
+        name: "SQL Server",
+        color: "from-red-500 to-red-700",
+        icon: <SiMicrosoftsqlserver className="w-6 h-6 text-[#CC2927]" />,
+      },
 
-    // DevOps & Tools
-    {
-      name: "Git",
-      color: "from-orange-600 to-red-500",
-      icon: <SiGit className="w-6 h-6 text-[#F05032]" />,
-    },
-    {
-      name: "GitHub",
-      color: "from-gray-700 to-gray-900",
-      icon: <SiGithub className="w-6 h-6 text-black" />,
-    },
-    {
-      name: "Docker",
-      color: "from-blue-400 to-cyan-500",
-      icon: <SiDocker className="w-6 h-6 text-[#2496ED]" />,
-    },
-    {
-      name: "Vite",
-      color: "from-purple-400 to-purple-600",
-      icon: <SiVite className="w-6 h-6 text-[#646CFF]" />,
-    },
-  ];
+      // DevOps & Tools
+      {
+        name: "Git",
+        color: "from-orange-600 to-red-500",
+        icon: <SiGit className="w-6 h-6 text-[#F05032]" />,
+      },
+      {
+        name: "GitHub",
+        color: "from-gray-700 to-gray-900",
+        icon: <SiGithub className="w-6 h-6 text-black" />,
+      },
+      {
+        name: "Docker",
+        color: "from-blue-400 to-cyan-500",
+        icon: <SiDocker className="w-6 h-6 text-[#2496ED]" />,
+      },
+      {
+        name: "Vite",
+        color: "from-purple-400 to-purple-600",
+        icon: <SiVite className="w-6 h-6 text-[#646CFF]" />,
+      },
+    ],
+    [],
+  );
 
   // State for auto-flipping cards
   const [flippedCards, setFlippedCards] = useState({});
@@ -170,7 +170,7 @@ const Skills = () => {
 
     // Cleanup intervals on component unmount
     return () => intervals.forEach((interval) => clearInterval(interval));
-  }, []);
+  }, [techLogos]);
 
   // Updated getTechCategory with all technologies
   const getTechCategory = (techName) => {

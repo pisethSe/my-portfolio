@@ -3,7 +3,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Users, TrendingUp, Award, Clock, Star } from "lucide-react";
+import { Users, TrendingUp, Award, Clock } from "lucide-react";
 import CountUp from "react-countup";
 
 const SeriousStats = () => {

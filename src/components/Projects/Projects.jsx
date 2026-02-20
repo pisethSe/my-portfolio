@@ -3,13 +3,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  ExternalLink,
-  Github,
-  Filter,
-  Calendar,
-  ChevronRight,
-} from "lucide-react";
+import { ExternalLink, Github, Filter, ChevronRight } from "lucide-react";
 
 const Projects = () => {
   const [filter, setFilter] = useState("all");

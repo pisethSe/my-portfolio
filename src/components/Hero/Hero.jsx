@@ -2,7 +2,7 @@
 "use client";
 
 import { motion, useAnimation } from "framer-motion";
-import { ArrowRight, Sparkles, ChevronDown } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useEffect, useRef } from "react";
 
 const CircularText = ({
