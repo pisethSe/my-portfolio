@@ -7,14 +7,11 @@ import {
   Code,
   Palette,
   Server,
-  Cloud,
   ChevronRight,
   CheckCircle,
   Database,
   Cpu,
-  GitBranch,
   FileCode,
-  Box,
 } from "lucide-react";
 // If you installed react-icons, use these:
 
@@ -24,20 +21,13 @@ import {
   SiCss3,
   SiJavascript,
   SiReact,
-  SiNextdotjs,
   SiTypescript,
   SiTailwindcss,
   SiNodedotjs,
   SiExpress,
-  SiPython,
   SiPostgresql,
-  SiMongodb,
   SiMysql,
   SiMicrosoftsqlserver,
-  SiGit,
-  SiGithub,
-  SiDocker,
-  SiVite,
 } from "react-icons/si";
 
 const Skills = () => {
@@ -65,16 +55,11 @@ const Skills = () => {
         icon: <SiJavascript className="w-6 h-6 text-[#F7DF1E]" />,
       },
 
-      // Frontend Frameworks
+      // Frontend Development
       {
-        name: "React",
+        name: "React.js",
         color: "from-cyan-400 to-blue-500",
         icon: <SiReact className="w-6 h-6 text-[#61DAFB]" />,
-      },
-      {
-        name: "Next.js",
-        color: "from-gray-900 to-gray-700",
-        icon: <SiNextdotjs className="w-6 h-6 text-black" />,
       },
       {
         name: "TypeScript",
@@ -85,6 +70,16 @@ const Skills = () => {
         name: "Tailwind CSS",
         color: "from-teal-400 to-cyan-500",
         icon: <SiTailwindcss className="w-6 h-6 text-[#06B6D4]" />,
+      },
+      {
+        name: "Framer Motion",
+        color: "from-purple-500 to-pink-500",
+        icon: <Cpu className="w-6 h-6 text-[#ec4899]" />,
+      },
+      {
+        name: "GSAP",
+        color: "from-green-500 to-lime-500",
+        icon: <Cpu className="w-6 h-6 text-[#84cc16]" />,
       },
 
       // Backend & APIs
@@ -99,9 +94,19 @@ const Skills = () => {
         icon: <SiExpress className="w-6 h-6 text-black" />,
       },
       {
-        name: "Python",
-        color: "from-blue-400 to-yellow-500",
-        icon: <SiPython className="w-6 h-6 text-[#3776AB]" />,
+        name: "JWT",
+        color: "from-orange-500 to-amber-500",
+        icon: <FileCode className="w-6 h-6 text-[#f97316]" />,
+      },
+      {
+        name: "OAuth2",
+        color: "from-indigo-500 to-purple-500",
+        icon: <Server className="w-6 h-6 text-[#6366f1]" />,
+      },
+      {
+        name: "REST API",
+        color: "from-sky-500 to-cyan-500",
+        icon: <Server className="w-6 h-6 text-[#0ea5e9]" />,
       },
 
       // Databases
@@ -109,11 +114,6 @@ const Skills = () => {
         name: "PostgreSQL",
         color: "from-blue-400 to-blue-600",
         icon: <SiPostgresql className="w-6 h-6 text-[#336791]" />,
-      },
-      {
-        name: "MongoDB",
-        color: "from-green-600 to-green-800",
-        icon: <SiMongodb className="w-6 h-6 text-[#47A248]" />,
       },
       {
         name: "MySQL",
@@ -125,27 +125,10 @@ const Skills = () => {
         color: "from-red-500 to-red-700",
         icon: <SiMicrosoftsqlserver className="w-6 h-6 text-[#CC2927]" />,
       },
-
-      // DevOps & Tools
       {
-        name: "Git",
-        color: "from-orange-600 to-red-500",
-        icon: <SiGit className="w-6 h-6 text-[#F05032]" />,
-      },
-      {
-        name: "GitHub",
-        color: "from-gray-700 to-gray-900",
-        icon: <SiGithub className="w-6 h-6 text-black" />,
-      },
-      {
-        name: "Docker",
-        color: "from-blue-400 to-cyan-500",
-        icon: <SiDocker className="w-6 h-6 text-[#2496ED]" />,
-      },
-      {
-        name: "Vite",
-        color: "from-purple-400 to-purple-600",
-        icon: <SiVite className="w-6 h-6 text-[#646CFF]" />,
+        name: "SQLite",
+        color: "from-slate-500 to-gray-700",
+        icon: <Database className="w-6 h-6 text-[#64748b]" />,
       },
     ],
     [],
@@ -181,33 +164,33 @@ const Skills = () => {
       JavaScript: { name: "Language", icon: <FileCode className="w-3 h-3" /> },
 
       // Frontend Frameworks
-      React: { name: "Frontend", icon: <Code className="w-3 h-3" /> },
-      "Next.js": { name: "Frontend", icon: <Code className="w-3 h-3" /> },
+      "React.js": { name: "Frontend", icon: <Code className="w-3 h-3" /> },
       TypeScript: { name: "Language", icon: <FileCode className="w-3 h-3" /> },
       "Tailwind CSS": {
         name: "CSS Framework",
         icon: <Palette className="w-3 h-3" />,
       },
+      "Framer Motion": {
+        name: "Animation",
+        icon: <Cpu className="w-3 h-3" />,
+      },
+      GSAP: { name: "Animation", icon: <Cpu className="w-3 h-3" /> },
 
       // Backend & APIs
       "Node.js": { name: "Backend", icon: <Server className="w-3 h-3" /> },
       Express: { name: "Backend", icon: <Server className="w-3 h-3" /> },
-      Python: { name: "Language", icon: <FileCode className="w-3 h-3" /> },
+      JWT: { name: "Authentication", icon: <FileCode className="w-3 h-3" /> },
+      OAuth2: { name: "Authentication", icon: <Server className="w-3 h-3" /> },
+      "REST API": { name: "API", icon: <Server className="w-3 h-3" /> },
 
       // Databases
       PostgreSQL: { name: "Database", icon: <Database className="w-3 h-3" /> },
-      MongoDB: { name: "Database", icon: <Database className="w-3 h-3" /> },
       MySQL: { name: "Database", icon: <Database className="w-3 h-3" /> },
       "SQL Server": {
         name: "Database",
         icon: <Database className="w-3 h-3" />,
       },
-
-      // DevOps & Tools
-      Git: { name: "Version Control", icon: <GitBranch className="w-3 h-3" /> },
-      GitHub: { name: "Platform", icon: <GitBranch className="w-3 h-3" /> },
-      Docker: { name: "DevOps", icon: <Box className="w-3 h-3" /> },
-      Vite: { name: "Build Tool", icon: <Cpu className="w-3 h-3" /> },
+      SQLite: { name: "Database", icon: <Database className="w-3 h-3" /> },
     };
 
     return (
@@ -226,27 +209,24 @@ const Skills = () => {
       JavaScript: 96,
 
       // Frontend Frameworks
-      React: 96,
-      "Next.js": 94,
+      "React.js": 96,
       TypeScript: 92,
       "Tailwind CSS": 95,
+      "Framer Motion": 88,
+      GSAP: 86,
 
       // Backend & APIs
       "Node.js": 92,
       Express: 90,
-      Python: 88,
+      JWT: 90,
+      OAuth2: 88,
+      "REST API": 91,
 
       // Databases
       PostgreSQL: 88,
-      MongoDB: 85,
-      MySQL: 82,
-      "SQL Server": 80,
-
-      // DevOps & Tools
-      Git: 96,
-      GitHub: 94,
-      Docker: 85,
-      Vite: 89,
+      MySQL: 90,
+      "SQL Server": 88,
+      SQLite: 86,
     };
 
     return levels[techName] || 85;
@@ -257,12 +237,17 @@ const Skills = () => {
       id: "frontend",
       icon: <Code className="w-5 h-5" />,
       title: "Frontend Development",
-      description: "Crafting intuitive and performant user interfaces",
+      description: "Building modern interactive UIs",
       skills: [
         {
-          name: "React/Next.js",
+          name: "React.js",
           level: 96,
           color: "from-blue-500 to-cyan-500",
+        },
+        {
+          name: "JavaScript",
+          level: 95,
+          color: "from-yellow-400 to-amber-500",
         },
         {
           name: "TypeScript",
@@ -279,12 +264,17 @@ const Skills = () => {
           level: 88,
           color: "from-purple-500 to-pink-500",
         },
+        {
+          name: "GSAP",
+          level: 86,
+          color: "from-green-500 to-lime-500",
+        },
       ],
       features: [
         "Component Architecture",
-        "State Management",
+        "JavaScript & TypeScript",
         "Performance Optimization",
-        "Accessibility",
+        "Interactive Animations",
       ],
     },
     {
@@ -299,26 +289,26 @@ const Skills = () => {
           color: "from-green-500 to-emerald-500",
         },
         {
-          name: "PostgreSQL",
+          name: "JWT",
+          level: 90,
+          color: "from-orange-500 to-amber-500",
+        },
+        {
+          name: "OAuth2",
           level: 88,
-          color: "from-blue-500 to-cyan-500",
+          color: "from-indigo-500 to-violet-500",
         },
         {
-          name: "MongoDB",
-          level: 85,
-          color: "from-green-600 to-teal-500",
-        },
-        {
-          name: "GraphQL",
-          level: 82,
-          color: "from-pink-500 to-rose-500",
+          name: "REST API",
+          level: 91,
+          color: "from-sky-500 to-cyan-500",
         },
       ],
       features: [
-        "RESTful APIs",
-        "Database Design",
-        "Authentication",
-        "Microservices",
+        "Node.js/Express",
+        "JWT Authentication",
+        "OAuth2 Authorization",
+        "REST API Development",
       ],
     },
     {
@@ -352,21 +342,34 @@ const Skills = () => {
       ],
     },
     {
-      id: "devops",
-      icon: <Cloud className="w-5 h-5" />,
-      title: "DevOps & Tools",
-      description: "Streamlining development and deployment",
+      id: "database",
+      icon: <Database className="w-5 h-5" />,
+      title: "Database",
+      description: "Designing and managing relational databases",
       skills: [
         {
-          name: "Docker",
-          level: 85,
+          name: "MySQL",
+          level: 90,
           color: "from-blue-500 to-indigo-500",
         },
-        { name: "AWS", level: 80, color: "from-orange-500 to-amber-500" },
-        { name: "Git", level: 96, color: "from-orange-600 to-red-500" },
-        { name: "CI/CD", level: 87, color: "from-green-500 to-teal-500" },
+        {
+          name: "SQL Server",
+          level: 88,
+          color: "from-red-500 to-rose-500",
+        },
+        {
+          name: "PostgreSQL",
+          level: 89,
+          color: "from-cyan-500 to-blue-500",
+        },
+        { name: "SQLite", level: 86, color: "from-slate-500 to-gray-600" },
       ],
-      features: ["Infrastructure", "Monitoring", "Automation", "Security"],
+      features: [
+        "Schema Design",
+        "Query Optimization",
+        "Data Modeling",
+        "Migrations",
+      ],
     },
   ];
 
@@ -616,7 +619,7 @@ const Skills = () => {
       </div>
 
       {/* Vertical Flip CSS */}
-      <style jsx>{`
+      <style>{`
         .flip-vertical-container {
           perspective: 1000px;
         }

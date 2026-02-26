@@ -119,6 +119,30 @@ const CircularText = ({
 };
 
 const Hero = () => {
+  const scrollToSection = (targetId, attempt = 0) => {
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      const offset = 88;
+      const targetY =
+        element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: "smooth",
+      });
+      return;
+    }
+
+    if (attempt < 10) {
+      window.setTimeout(() => scrollToSection(targetId, attempt + 1), 80);
+    }
+  };
+
+  const handleAnchorScroll = (e, targetId) => {
+    e.preventDefault();
+    scrollToSection(targetId);
+  };
+
   const scrollToNextSection = () => {
     // Find the next section after Hero (likely Skills section)
     const nextSection =
@@ -165,9 +189,9 @@ const Hero = () => {
               >
                 Crafting digital
                 <br />
-                experiences that{" "}
+                experiences with{" "}
                 <span className="text-gray-400 relative inline-block">
-                  convert
+                  SE PISETH
                   <span className="absolute bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-gray-900 to-transparent" />
                 </span>
                 .
@@ -192,6 +216,7 @@ const Hero = () => {
               >
                 <motion.a
                   href="#contact"
+                  onClick={(e) => handleAnchorScroll(e, "contact")}
                   className="px-8 py-4 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all duration-300 inline-flex items-center gap-2 border border-gray-900 rounded-lg shadow-sm hover:shadow-md"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
@@ -201,11 +226,12 @@ const Hero = () => {
                 </motion.a>
                 <motion.a
                   href="#work"
+                  onClick={(e) => handleAnchorScroll(e, "work")}
                   className="px-8 py-4 bg-transparent text-gray-900 font-medium border-2 border-gray-900 hover:bg-gray-900 hover:text-white transition-all duration-300 inline-flex items-center gap-2 rounded-lg shadow-sm hover:shadow-md"
                   whileHover={{ scale: 1.02, y: -2 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  View Our Work
+                  View my Work
                 </motion.a>
                 {/* ADD THE SCROLL INDICATOR HERE */}
                 <motion.div
@@ -309,10 +335,10 @@ const Hero = () => {
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
               {[
-                { value: "10+", label: "Years Experience" },
-                { value: "50+", label: "Projects Delivered" },
-                { value: "$500M+", label: "Client Funding Raised" },
-                { value: "94%", label: "Client Retention" },
+                { value: "^", label: "consistency" },
+                { value: "5+", label: "Projects Delivered" },
+                { value: "+", label: "HOBBY" },
+                { value: "-", label: "EXPLORE" },
               ].map((stat, index) => (
                 <div key={index} className="text-center md:text-left">
                   <div className="text-3xl md:text-4xl lg:text-5xl font-display font-bold mb-2">

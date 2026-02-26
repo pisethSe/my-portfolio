@@ -1,7 +1,7 @@
 // src/components/CaseStudies/PortfolioGrid.jsx
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ExternalLink,
@@ -20,12 +20,19 @@ import {
   Palette,
   Zap,
 } from "lucide-react";
-import Image from "next/image";
 
 const PortfolioGrid = () => {
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState("all"); // why use "all" as default filter? because it will show all projects when the component first loads, giving users an immediate view of the portfolio without needing to select a filter. It also provides a clear option for users who want to see everything at once, enhancing the user experience by allowing them to explore all available projects without any restrictions.
   const [selectedProject, setSelectedProject] = useState(null);
-  const modalRef = useRef(null);
+  const modalRef = useRef(null); // this ref is used to reference the modal element in the DOM, allowing us to detect clicks outside of the modal to close it. By attaching this ref to the modal container, we can check if a click event occurred outside of this element and trigger the closeModal function accordingly, improving the user experience by providing an intuitive way to exit the modal view.
+  const colorGradientClasses = {
+    blue: "from-blue-500 to-blue-600",
+    purple: "from-purple-500 to-purple-600",
+    green: "from-green-500 to-green-600",
+    orange: "from-orange-500 to-orange-600",
+    indigo: "from-indigo-500 to-indigo-600",
+    yellow: "from-yellow-500 to-yellow-600",
+  };
 
   const projects = [
     {
@@ -234,22 +241,33 @@ const PortfolioGrid = () => {
     },
   ];
 
+  // this condition is when filter === all then show all projects, but when filter is not all then filter projects based on category, for example if filter is frontend then only show projects with category frontend, this allows users to easily navigate and find projects that match their interests or needs without having to scroll through the entire portfolio, enhancing the user experience by providing a more personalized and efficient way to explore the work.
   const filteredProjects =
     filter === "all"
       ? projects
       : projects.filter((project) => project.category === filter);
 
+  // this function is used to open the model or popup when user click on the project card, it sets the selected project to the project that was clicked and also disable scrolling on the body to prevent background scrolling when the modal is open, this improves user experience by allowing users to focus on the project details without distractions from the background content, creating a more immersive and engaging experience when viewing project information.
   const openModal = (project) => {
     setSelectedProject(project);
     document.body.style.overflow = "hidden";
   };
 
+  // this function is used to close the modal or popup, it sets the selected project back to null and also re-enable scrolling on the body, this allows users to easily exit the modal view and return to browsing the portfolio without any restrictions, enhancing the user experience by providing a seamless way to navigate between project details and the main portfolio grid.
   const closeModal = () => {
     setSelectedProject(null);
     document.body.style.overflow = "auto";
   };
 
+  useEffect(
+    () => () => {
+      document.body.style.overflow = "auto";
+    },
+    [],
+  );
+
   // Close modal when clicking outside
+  // this function check is click event outside of the modal, if true then call closeModal function to close the modal, this improves user experience by allowing users to easily exit the modal view without having to find and click a specific close button, making the interaction more intuitive and seamless.
   const handleBackdropClick = (e) => {
     if (modalRef.current && !modalRef.current.contains(e.target)) {
       closeModal();
@@ -257,7 +275,7 @@ const PortfolioGrid = () => {
   };
 
   return (
-    <section id="work" className="py-24">
+    <section className="py-24">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -343,7 +361,7 @@ const PortfolioGrid = () => {
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="relative">
                       <div
-                        className={`w-20 h-20 rounded-2xl bg-gradient-to-br from-${project.color}-500 to-${project.color}-600 flex items-center justify-center shadow-lg`}
+                        className={`w-20 h-20 rounded-2xl bg-gradient-to-br ${colorGradientClasses[project.color] || "from-gray-500 to-gray-600"} flex items-center justify-center shadow-lg`}
                       >
                         <div className="text-white">{project.icon}</div>
                       </div>

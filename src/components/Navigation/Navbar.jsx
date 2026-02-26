@@ -29,6 +29,7 @@ const Navbar = () => {
     setIsScrolled(window.scrollY > 20);
 
     // Update active section
+    // Get all section IDs from navItems
     const sections = navItems.map((item) => item.href.replace("#", ""));
     const current = sections.find((section) => {
       const element = document.getElementById(section);
@@ -41,6 +42,7 @@ const Navbar = () => {
     if (current) setActiveSection(current);
   }, [navItems]);
 
+  // Add scroll event listener
   useEffect(() => {
     // Set initial active section
     handleScroll();
@@ -49,25 +51,35 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  // Smooth scroll function with retry mechanism
+  const scrollToSection = useCallback((targetId, attempt = 0) => {
+    const element = document.getElementById(targetId);
+
+    if (element) {
+      const offset = 88;
+      const targetY =
+        element.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({
+        top: Math.max(0, targetY),
+        behavior: "smooth",
+      });
+      return;
+    }
+
+    if (attempt < 10) {
+      window.setTimeout(() => scrollToSection(targetId, attempt + 1), 80);
+    }
+  }, []);
+
   // Smooth scroll handler
   const handleNavClick = (e, href) => {
-    e.preventDefault();
-    setIsOpen(false);
+    e.preventDefault(); // use preventDefault to avoid default anchor behavior or refresh page
+    setIsOpen(false); // Close mobile menu if open
 
     const targetId = href.replace("#", "");
     setActiveSection(targetId); // Immediately set active section
 
-    const element = document.getElementById(targetId);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-    }
+    scrollToSection(targetId);
   };
 
   return (
@@ -138,8 +150,9 @@ const Navbar = () => {
               );
             })}
 
-            <motion.button
-              onClick={(e) => handleNavClick(e, "#contact")}
+            <motion.a
+              href="/Piseth-CV.pdf"
+              download="Piseth-CV.pdf"
               className="ml-4 px-6 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-full hover:bg-gray-800 transition-all duration-300 flex items-center gap-2 shadow-md"
               whileHover={{
                 scale: 1.05,
@@ -147,9 +160,9 @@ const Navbar = () => {
               }}
               whileTap={{ scale: 0.95 }}
             >
-              Start Project
+              Download CV
               <ChevronRight size={16} />
-            </motion.button>
+            </motion.a>
           </div>
 
           {/* Mobile Menu Button */}

@@ -31,22 +31,21 @@ const ContactForm = () => {
   const contactInfo = [
     {
       icon: <Mail className="w-5 h-5" />,
-      title: "Email",
-      value: "hello@portfolio.dev",
-      link: "mailto:hello@portfolio.dev",
+      title: "LinkedIn",
+      value: "Se piseth",
+      link: "https://www.linkedin.com/feed/",
       description: "For general inquiries",
     },
     {
       icon: <Phone className="w-5 h-5" />,
       title: "Phone",
-      value: "+1 (555) 123-4567",
-      link: "tel:+15551234567",
+      value: "0704425252",
       description: "Mon-Fri, 9AM-6PM EST",
     },
     {
       icon: <MapPin className="w-5 h-5" />,
       title: "Location",
-      value: "San Francisco, CA",
+      value: "pp",
       link: "#",
       description: "Available worldwide",
     },
@@ -113,7 +112,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contact" className="py-20 w-full bg-gray-50">
+    <section className="py-20 w-full bg-gray-50">
       <div className="container-custom">
         <div className="content-wrapper">
           <motion.div

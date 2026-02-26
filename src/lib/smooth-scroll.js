@@ -5,6 +5,9 @@ export class SmoothScroll {
   constructor() {
     this.lenis = null;
     this.isInitialized = false;
+    this.rafId = null;
+    this.styleElement = null;
+    this.raf = this.raf.bind(this);
   }
 
   init() {
@@ -21,20 +24,22 @@ export class SmoothScroll {
       wheelMultiplier: 1.2,
     });
 
-    // RAF loop
-    const raf = (time) => {
-      this.lenis.raf(time);
-      requestAnimationFrame(raf);
-    };
-    requestAnimationFrame(raf);
-
+    this.rafId = requestAnimationFrame(this.raf);
     this.isInitialized = true;
 
     // Add CSS for smooth scrolling
     this.addSmoothScrollCSS();
   }
 
+  raf(time) {
+    if (!this.lenis) return;
+    this.lenis.raf(time);
+    this.rafId = requestAnimationFrame(this.raf);
+  }
+
   addSmoothScrollCSS() {
+    if (this.styleElement || typeof document === "undefined") return;
+
     const style = document.createElement("style");
     style.textContent = `
       html.lenis, html.lenis body {
@@ -54,14 +59,26 @@ export class SmoothScroll {
       }
     `;
     document.head.appendChild(style);
+    this.styleElement = style;
   }
 
   destroy() {
+    if (this.rafId !== null) {
+      cancelAnimationFrame(this.rafId);
+      this.rafId = null;
+    }
+
     if (this.lenis) {
       this.lenis.destroy();
       this.lenis = null;
-      this.isInitialized = false;
     }
+
+    if (this.styleElement) {
+      this.styleElement.remove();
+      this.styleElement = null;
+    }
+
+    this.isInitialized = false;
   }
 }
 

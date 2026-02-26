@@ -91,7 +91,7 @@ const ClientTestimonials = () => {
   };
 
   return (
-    <section id="testimonials" className="py-20 w-full">
+    <section className="py-20 w-full">
       <div className="container-custom">
         <div className="content-wrapper">
           {/* Header */}

@@ -2,37 +2,28 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Briefcase, Award } from "lucide-react";
+import { MapPin, Briefcase, Award } from "lucide-react";
 
+// thsi part is call about section
 const About = () => {
   const timeline = [
     {
-      year: "2023-Present",
       role: "Lead Frontend Developer",
-      company: "TechScale Inc.",
     },
     {
-      year: "2021-2023",
-      role: "Senior UI/UX Designer",
-      company: "DigitalFirst Agency",
+      role: "UI/UX Designer",
     },
-    { year: "2019-2021", role: "Full Stack Developer", company: "StartupXYZ" },
-    {
-      year: "2017-2019",
-      role: "Frontend Developer",
-      company: "WebCraft Studio",
-    },
+    { role: "Full Stack Developer" },
   ];
 
   const facts = [
-    { icon: <Calendar />, value: "7+", label: "Years Experience" },
-    { icon: <Briefcase />, value: "50+", label: "Projects Completed" },
-    { icon: <Award />, value: "15+", label: "Awards Won" },
+    { icon: <Briefcase />, value: "5+", label: "Projects Completed" },
+    { icon: <Award />, value: "3+", label: "Awards Won" },
     { icon: <MapPin />, value: "Remote", label: "Based Worldwide" },
   ];
 
   return (
-    <section id="about" className="py-20 w-full">
+    <section className="py-20 w-full">
       <div className="container-custom">
         <div className="content-wrapper">
           <div className="grid lg:grid-cols-2 gap-12 items-start">
@@ -47,11 +38,12 @@ const About = () => {
               {/* Profile Image */}
               <div className="relative w-full max-w-[500px] mx-auto lg:mx-0">
                 <div className="aspect-square overflow-hidden rounded-xl border border-gray-200">
-                  <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-200" />
-                </div>
-                <div className="absolute -bottom-4 -right-4 bg-gray-900 text-white p-6 rounded-lg shadow-lg">
-                  <div className="text-2xl font-display font-bold">7+</div>
-                  <div className="text-sm font-medium">Years Exp</div>
+                  <img
+                    src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyc2N0dWl1eXdueTFyczhjb2M0c3EzdzRiOGZ6eTI2d2FjMXN2eHIwNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/78XCFBGOlS6keY1Bil/200w.gif"
+                    alt="Profile animation"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
               </div>
 
@@ -92,10 +84,12 @@ const About = () => {
               </h2>
               <div className="space-y-4 text-gray-700 mb-8">
                 <p>
-                  I specialize in creating premium digital products that combine
-                  aesthetic excellence with technical precision. With over 7
-                  years of experience, I've helped startups and enterprises
-                  build products that users love.
+                  I began my software development journey by building full stack
+                  applications using modern technologies such as React.js,
+                  Node.js, FastAPI, and PostgreSQL. Through academic and
+                  personal projects, I gained hands-on experience in frontend
+                  development, backend API design, database management, and
+                  cloud integration.
                 </p>
                 <p>
                   My approach blends strategic thinking with meticulous
@@ -110,24 +104,29 @@ const About = () => {
                   Professional Journey
                 </h3>
                 <div className="space-y-4">
-                  {timeline.map((item, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: index * 0.1 }}
-                      className="flex items-start gap-4 pb-4 border-b border-gray-100 last:border-0"
-                    >
-                      <div className="text-sm font-medium text-gray-600 min-w-24">
-                        {item.year}
-                      </div>
-                      <div className="flex-1">
-                        <div className="font-medium">{item.role}</div>
-                        <div className="text-gray-600">{item.company}</div>
-                      </div>
-                    </motion.div>
-                  ))}
+                  {timeline.map(
+                    (
+                      item,
+                      index, //use map to loop through timeline array and display each item with animation
+                    ) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: 20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-start gap-4 pb-4 border-b border-gray-100 last:border-0"
+                      >
+                        <div className="text-sm font-medium text-gray-600 min-w-24">
+                          {item.year}
+                        </div>
+                        <div className="flex-1">
+                          <div className="font-medium">{item.role}</div>
+                          <div className="text-gray-600">{item.company}</div>
+                        </div>
+                      </motion.div>
+                    ),
+                  )}
                 </div>
               </div>
             </motion.div>

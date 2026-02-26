@@ -11,7 +11,6 @@ const Hero = lazy(() => import("./components/Hero/Hero"));
 const About = lazy(() => import("./components/About/About"));
 const Skills = lazy(() => import("./components/Skills/Skills"));
 const Projects = lazy(() => import("./components/Projects/Projects"));
-const SeriousStats = lazy(() => import("./components/Stats/SeriousStats"));
 const Testimonials = lazy(
   () => import("./components/Testimonials/ClientTestimonials"),
 );
@@ -95,29 +94,19 @@ export default function Home() {
 
           {/* Projects Section */}
           <motion.section
-            id="work"
             variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            initial={false}
+            animate="visible"
             className="w-full"
           >
-            <Suspense fallback={null}>
+            <Suspense
+              fallback={
+                <div className="py-24 text-center text-gray-500">
+                  Loading projects...
+                </div>
+              }
+            >
               <Projects />
-            </Suspense>
-          </motion.section>
-
-          {/* Serious Stats */}
-          <motion.section
-            id="stats"
-            variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="w-full"
-          >
-            <Suspense fallback={null}>
-              <SeriousStats />
             </Suspense>
           </motion.section>
 
