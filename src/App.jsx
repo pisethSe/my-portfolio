@@ -11,9 +11,6 @@ const Hero = lazy(() => import("./components/Hero/Hero"));
 const About = lazy(() => import("./components/About/About"));
 const Skills = lazy(() => import("./components/Skills/Skills"));
 const Projects = lazy(() => import("./components/Projects/Projects"));
-const Testimonials = lazy(
-  () => import("./components/Testimonials/ClientTestimonials"),
-);
 const Contact = lazy(() => import("./components/Contact/ContactForm"));
 const Footer = lazy(() => import("./components/Footer"));
 
@@ -84,7 +81,7 @@ export default function Home() {
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             className="w-full"
           >
             <Suspense fallback={null}>
@@ -110,27 +107,13 @@ export default function Home() {
             </Suspense>
           </motion.section>
 
-          {/* Testimonials */}
-          <motion.section
-            id="testimonials"
-            variants={sectionVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            className="w-full"
-          >
-            <Suspense fallback={null}>
-              <Testimonials />
-            </Suspense>
-          </motion.section>
-
           {/* Contact */}
           <motion.section
             id="contact"
             variants={sectionVariants}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.1 }}
             className="w-full"
           >
             <Suspense fallback={null}>

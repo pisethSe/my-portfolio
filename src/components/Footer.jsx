@@ -3,7 +3,8 @@
 
 import { motion } from "framer-motion";
 import { Heart, ArrowUp } from "lucide-react";
-import { Github, Linkedin, Twitter } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
+import { SiTelegram } from "react-icons/si";
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -36,7 +37,7 @@ const Footer = () => {
             className="flex items-center gap-6"
           >
             <a
-              href="https://github.com"
+              href="https://github.com/pisethSe"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
@@ -45,7 +46,7 @@ const Footer = () => {
               <Github size={24} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/feed/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
@@ -54,13 +55,13 @@ const Footer = () => {
               <Linkedin size={24} />
             </a>
             <a
-              href="https://twitter.com"
+              href="https://t.me/piseth1_1"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white transition-colors"
-              aria-label="Twitter"
+              aria-label="Telegram"
             >
-              <Twitter size={24} />
+              <SiTelegram size={24} />
             </a>
           </motion.div>
 

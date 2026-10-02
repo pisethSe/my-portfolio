@@ -62,6 +62,14 @@ export class SmoothScroll {
     this.styleElement = style;
   }
 
+  stop() {
+    if (this.lenis) this.lenis.stop();
+  }
+
+  start() {
+    if (this.lenis) this.lenis.start();
+  }
+
   destroy() {
     if (this.rafId !== null) {
       cancelAnimationFrame(this.rafId);

@@ -1,122 +1,235 @@
 // src/components/Projects/Projects.jsx
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { ExternalLink, Github, Filter, ChevronRight } from "lucide-react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { smoothScroll } from "../../lib/smooth-scroll";
+import { ArrowUpRight, Code, Github, X } from "lucide-react";
+import {
+  SiReact,
+  SiTypescript,
+  SiVite,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiExpress,
+  SiNestjs,
+  SiNextdotjs,
+  SiPrisma,
+  SiPostgresql,
+  SiSqlalchemy,
+  SiSupabase,
+  SiRedis,
+  SiDocker,
+  SiLaravel,
+  SiMysql,
+  SiFastapi,
+  SiSqlite,
+  SiGithubactions,
+} from "react-icons/si";
+
+// Maps a stack item to its brand icon (falls back to a generic code icon)
+const TECH_ICON_CLASS = "w-[16px] h-[16px]";
+const getTechIcon = (tech) => {
+  const t = tech.toLowerCase();
+  const icon = (Icon) => <Icon className={TECH_ICON_CLASS} />;
+
+  if (t.includes("next")) return icon(SiNextdotjs);
+  if (t.includes("nest")) return icon(SiNestjs);
+  if (t.includes("fastapi")) return icon(SiFastapi);
+  if (t.includes("laravel")) return icon(SiLaravel);
+  if (t.includes("prisma")) return icon(SiPrisma);
+  if (t.includes("supabase")) return icon(SiSupabase);
+  if (t.includes("sqlalchemy") || t.includes("alembic"))
+    return icon(SiSqlalchemy);
+  if (t.includes("github")) return icon(SiGithubactions);
+  if (t.includes("react")) return icon(SiReact);
+  if (t.includes("vite")) return icon(SiVite);
+  if (t.includes("tailwind")) return icon(SiTailwindcss);
+  if (t.includes("node")) return icon(SiNodedotjs);
+  if (t.includes("express")) return icon(SiExpress);
+  if (t.includes("postgres") || t.includes("postgis") || t.includes("neon"))
+    return icon(SiPostgresql);
+  if (t.includes("mysql")) return icon(SiMysql);
+  if (t.includes("sqlite")) return icon(SiSqlite);
+  if (t.includes("redis")) return icon(SiRedis);
+  if (t.includes("docker")) return icon(SiDocker);
+  if (t.includes("typescript")) return icon(SiTypescript);
+  return <Code className={TECH_ICON_CLASS} />;
+};
+
+// Short label for the compact list rows
+const shortTech = (tech) =>
+  tech
+    .replace(/\s*\([^)]*\)\s*/g, " ")
+    .replace(/\s+(frontend|backend)\b/gi, "")
+    .replace(/\s+schema$/i, "")
+    .replace(/\s+API\b.*$/i, "")
+    .split(/\s+with\s+/i)[0]
+    .split(" + ")[0]
+    .split("/")[0]
+    .split(",")[0]
+    .trim() || tech;
 
 // Note: In a real application, project data would likely come from an API
 const Projects = () => {
-  const [filter, setFilter] = useState("all");
-  const scrollToSection = (targetId, attempt = 0) => {
-    const element = document.getElementById(targetId);
-
-    if (element) {
-      const offset = 88;
-      const targetY =
-        element.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({
-        top: Math.max(0, targetY),
-        behavior: "smooth",
-      });
-      return;
-    }
-
-    if (attempt < 10) {
-      window.setTimeout(() => scrollToSection(targetId, attempt + 1), 80);
-    }
-  };
-
-  const handleAnchorScroll = (e, targetId) => {
-    e.preventDefault();
-    scrollToSection(targetId);
-  };
+  const [selectedProject, setSelectedProject] = useState(null);
 
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Keychain Store",
-      category: "fullstack",
+      title: "E-Commerce Skincare",
+      type: "ecommerce",
+      layout: "landing",
       description:
-        "Modern e-commerce platform for selling custom keychains with real-time inventory management",
-      tags: ["React", "Node.js", "Express", "PostgreSQL", "Prisma", "NEON"],
+        "Modern skincare e-commerce platform with product catalog, cart, and secure checkout flow",
+      tech: [
+        "React 18 + TypeScript",
+        "Vite",
+        "Tailwind CSS",
+        "Node.js + Express + TypeScript",
+        "Prisma ORM",
+        "PostgreSQL (Neon)",
+      ],
       year: "2025",
-      link: "#",
-      github: "https://github.com/moni-rem/KeychainHub",
-      image: "bg-gradient-to-br from-blue-600 to-cyan-600",
-      award: "Site of the day",
-      awardDate: "MARCH 14, 2024",
-      awardOrg: "Awwwards",
+      github: "https://github.com/pisethSe/e-commerce-skincare",
+      url: "skincare-ecommerce.demo",
+      image: "/projects/e-commerce-skincare.png",
+      accent: "from-rose-500 to-pink-600",
     },
     {
       id: 2,
-      title: "SaaS House Rentals",
-      category: "fullstack",
+      title: "Sala Management",
+      type: "management",
+      layout: "dashboard",
       description:
-        "Property rental platform with advanced search, booking system, and payment integration",
-      tags: ["React/javascript", "pyhton", "fastAPI", "sqlite"],
-      year: "2024",
-      link: "#",
-      github: "https://github.com/pisethSe/autorent",
-      image: "bg-gradient-to-br from-orange-600 to-red-600",
-      award: "Site of the year",
-      awardDate: "MARCH 14, 2024",
-      awardOrg: "CSS Awards",
+        "Hall and space management system with bookings, rooms, and an admin dashboard",
+      tech: [
+        "Next.js (App Router) + Tailwind CSS",
+        "NestJS (TypeScript) with Redis caching",
+        "Supabase PostgreSQL",
+        "Docker",
+      ],
+      year: "2025",
+      github: "https://github.com/pisethSe/sala-management",
+      url: "sala-management.demo",
+      image: "/projects/sala-management.png",
+      accent: "from-blue-600 to-cyan-600",
     },
     {
       id: 3,
-      title: "E-Learning Platform",
-      category: "fullstack",
+      title: "E-Learning",
+      type: "elearning",
+      layout: "landing",
       description:
-        "Interactive learning management system with course creation and student progress tracking",
-      tags: ["React", "PHP", "Laravel", "MySQL", "Tailwind CSS"],
+        "Interactive learning platform with course creation and student progress tracking",
+      tech: [
+        "React + Vite",
+        "FastAPI API with SQLAlchemy, Alembic, and PostgreSQL/SQLite support",
+      ],
       year: "2024",
-      link: "#",
-      github: "#",
-      image: "bg-gradient-to-br from-green-600 to-emerald-600",
-      award: "Site of the day",
-      awardDate: "MARCH 14, 2024",
-      awardOrg: "Dribbble",
+      github: "https://github.com/pisethSe/E-Learning",
+      url: "e-learning.demo",
+      image: "/projects/e-learning.png",
+      accent: "from-emerald-500 to-green-600",
     },
     {
       id: 4,
-      title: "SaaS House Rentals",
-      category: "fullstack",
+      title: "Hospital System",
+      type: "hospital",
+      layout: "dashboard",
       description:
-        "Property rental platform with advanced search, booking system, and payment integration",
-      tags: [
-        "React/TypeScript",
-        "Node.js",
-        "Express",
-        "PostgreSQL",
-        "Prisma",
-        "Docker",
+        "Hospital management system for appointments, patients, doctors, and medical records",
+      tech: [
+        "React 18 + Tailwind CSS",
+        "shadcn/ui (Vite)",
+        "Laravel 12",
+        "MySQL",
       ],
       year: "2024",
-      link: "#",
-      github: "#",
-      image: "bg-gradient-to-br from-orange-600 to-red-600",
-      award: "Site of the day",
-      awardDate: "MARCH 14, 2024",
-      awardOrg: "FWA Awards",
+      github: "https://github.com/pisethSe/Hospital-System",
+      url: "hospital-system.demo",
+      image: "/projects/hospital-system.png",
+      accent: "from-sky-500 to-indigo-600",
+    },
+    {
+      id: 5,
+      title: "Rental House or Room",
+      type: "rental",
+      layout: "landing",
+      description:
+        "Property rental platform with listings, advanced search, and booking requests",
+      tech: [
+        "Next.js frontend",
+        "NestJS backend",
+        "PostgreSQL/PostGIS",
+        "Prisma 7 schema",
+        "Docker",
+        "Redis",
+        "GitHub Actions",
+      ],
+      year: "2024",
+      github: "https://github.com/pisethSe/rentMe",
+      url: "rental-house.demo",
+      image: "/projects/rental-house.png",
+      accent: "from-orange-500 to-amber-600",
     },
   ];
 
-  const filters = [
-    { id: "all", label: "All Projects" },
-    { id: "fullstack", label: "Full Stack" },
-    { id: "ecommerce", label: "E-Commerce" },
-    { id: "saas", label: "SaaS" },
-  ];
+  // Open the full-screen preview and push a history entry so the browser
+  // Back button (and Escape / Close) returns to the project list
+  const openProject = (project) => {
+    if (window.history.state?.projectPreview !== true) {
+      window.history.pushState({ projectPreview: true }, "");
+    }
+    setSelectedProject(project);
+  };
 
-  const filteredProjects =
-    filter === "all" // Show all projects if "all" is selected
-      ? projects
-      : filter === "ecommerce"
-        ? projects.filter((p) => p.title.includes("Keychain"))
-        : filter === "saas"
-          ? projects.filter((p) => p.title.includes("Rentals"))
-          : projects.filter((project) => project.category === filter);
+  const closeProject = () => {
+    if (window.history.state?.projectPreview) {
+      window.history.back();
+    } else {
+      setSelectedProject(null);
+    }
+  };
+
+  // Clear any stale preview history state left over from a reload
+  useEffect(() => {
+    if (window.history.state?.projectPreview) {
+      window.history.replaceState(null, "");
+    }
+  }, []);
+
+  // Browser Back / Forward closes the preview
+  useEffect(() => {
+    const handlePop = () => setSelectedProject(null);
+    window.addEventListener("popstate", handlePop);
+    return () => window.removeEventListener("popstate", handlePop);
+  }, []);
+
+  // Lock page scroll, pause Lenis smooth scrolling and close on Escape
+  // while the full-screen preview is open
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    document.body.style.overflow = "hidden";
+    smoothScroll.stop();
+
+    const handleKey = (e) => {
+      if (e.key !== "Escape") return;
+      if (window.history.state?.projectPreview) {
+        window.history.back();
+      } else {
+        setSelectedProject(null);
+      }
+    };
+    window.addEventListener("keydown", handleKey);
+
+    return () => {
+      document.body.style.overflow = "";
+      smoothScroll.start();
+      window.removeEventListener("keydown", handleKey);
+    };
+  }, [selectedProject]);
 
   return (
     <section id="work" className="py-24 w-full bg-gray-50">
@@ -136,203 +249,53 @@ const Projects = () => {
               Featured Work
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Award-winning digital experiences crafted with cutting-edge
-              technology
+              A selection of projects — click any project to explore the full
+              experience
             </p>
           </motion.div>
 
-          {/* Filter Bar - Minimal */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex justify-center items-center gap-2 mb-16"
-          >
-            <Filter size={16} className="text-gray-400" />
-            {filters.map((filterItem) => (
-              <button
-                key={filterItem.id}
-                onClick={() => setFilter(filterItem.id)}
-                className={`px-5 py-2 text-sm font-medium transition-all duration-300 ${
-                  filter === filterItem.id
-                    ? "text-gray-900 border-b-2 border-gray-900"
-                    : "text-gray-500 hover:text-gray-900"
-                }`}
+          {/* Project Index - click a project to open the full-screen preview */}
+          <div className="border-t border-gray-200">
+            {projects.map((project, index) => (
+              <motion.button
+                key={project.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05 }}
+                onClick={() => openProject(project)}
+                className="group w-full flex items-center gap-[16px] md:gap-[24px] py-7 md:py-9 px-2 border-b border-gray-200 text-left hover:bg-white transition-colors duration-300"
               >
-                {filterItem.label}
-              </button>
+                <span className="text-sm font-mono text-gray-400 w-[32px] shrink-0">
+                  0{index + 1}
+                </span>
+                <span className="flex-1 min-w-0">
+                  <span className="block text-xl sm:text-2xl md:text-4xl font-display font-bold tracking-tight group-hover:translate-x-2 transition-transform duration-300 truncate">
+                    {project.title}
+                  </span>
+                  <span className="block text-sm text-gray-500 mt-1 truncate">
+                    {project.description}
+                  </span>
+                </span>
+                <span className="hidden md:flex flex-wrap gap-2 max-w-[240px] justify-end shrink-0">
+                  {project.tech.slice(0, 3).map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2.5 py-1 bg-gray-100 text-gray-600 text-[11px] font-mono whitespace-nowrap"
+                    >
+                      {shortTech(tag)}
+                    </span>
+                  ))}
+                </span>
+                <span className="shrink-0 w-[40px] h-[40px] rounded-full border border-gray-300 flex items-center justify-center text-gray-500 group-hover:bg-gray-900 group-hover:text-white group-hover:border-gray-900 transition-all duration-300">
+                  <ArrowUpRight size={16} />
+                </span>
+              </motion.button>
             ))}
-          </motion.div>
-
-          {/* Projects Grid - Award Style Cards */}
-          <div className="grid lg:grid-cols-2 gap-8">
-            {filteredProjects.map((project, index) => {
-              const resolvedLink =
-                project.link && project.link !== "#"
-                  ? project.link
-                  : project.github;
-              const hasLink = !!resolvedLink && resolvedLink !== "#";
-
-              return (
-                <motion.article
-                  key={project.id}
-                  initial={false}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.25, delay: index * 0.05 }}
-                  onClick={() => {
-                    if (hasLink) {
-                      window.open(
-                        resolvedLink,
-                        "_blank",
-                        "noopener,noreferrer",
-                      );
-                    }
-                  }}
-                  onKeyDown={(e) => {
-                    if (!hasLink) return;
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      window.open(
-                        resolvedLink,
-                        "_blank",
-                        "noopener,noreferrer",
-                      );
-                    }
-                  }}
-                  role={hasLink ? "link" : undefined}
-                  tabIndex={hasLink ? 0 : -1}
-                  className={`group relative overflow-hidden bg-white border border-gray-300 shadow-sm hover:border-gray-400 hover:shadow-xl transition-all duration-500 ${
-                    hasLink ? "cursor-pointer" : "cursor-default"
-                  }`}
-                >
-                  {/* Accent color bar */}
-                  <div className={`h-2 w-full ${project.image}`} />
-
-                  {/* Award Badge - Top Left */}
-                  <div className="absolute -top-3 -left-3 z-10">
-                    <div className="bg-white/95 border border-gray-200 px-4 py-2 shadow-sm backdrop-blur-sm">
-                      <span className="text-xs font-medium text-gray-900 uppercase tracking-wider">
-                        {project.awardOrg}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Award Date - Top Right */}
-                  <div className="absolute -top-3 -right-3 z-10">
-                    <div className="bg-white/95 border border-gray-200 px-4 py-2 shadow-sm backdrop-blur-sm">
-                      <span className="text-xs text-gray-600">
-                        {project.awardDate}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Award Title */}
-                  <div className="pt-12 px-8 pb-4 border-b border-gray-200 bg-white">
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm font-bold text-gray-900 uppercase tracking-wider">
-                        {project.award}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Project Content */}
-                  <div className="p-8 bg-white">
-                    {/* Title & Year */}
-                    <div className="flex justify-between items-start mb-6">
-                      <h3 className="text-3xl font-display font-bold tracking-tight group-hover:text-gray-600 transition-colors">
-                        {project.title}
-                      </h3>
-                      <span className="text-sm text-gray-500 font-mono">
-                        {project.year}
-                      </span>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    {/* Tech Stack Tags */}
-                    <div className="flex flex-wrap gap-2 mb-10">
-                      {project.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-3 py-1.5 bg-gray-100 text-gray-700 text-xs font-mono"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Actions */}
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                      <div className="flex items-center gap-4">
-                        {hasLink ? (
-                          <a
-                            href={resolvedLink}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="text-gray-400 hover:text-gray-900 transition-colors p-2"
-                            aria-label="View project"
-                          >
-                            <ExternalLink size={18} />
-                          </a>
-                        ) : (
-                          <span
-                            className="text-gray-300 p-2"
-                            aria-hidden="true"
-                          >
-                            <ExternalLink size={18} />
-                          </span>
-                        )}
-                        <a
-                          href={project.github}
-                          target={project.github !== "#" ? "_blank" : undefined}
-                          rel={
-                            project.github !== "#"
-                              ? "noopener noreferrer"
-                              : undefined
-                          }
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-gray-400 hover:text-gray-900 transition-colors p-2"
-                          aria-label="View code"
-                        >
-                          <Github size={18} />
-                        </a>
-                      </div>
-
-                      {hasLink ? (
-                        <motion.a
-                          href={resolvedLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-2 text-sm font-medium text-gray-900 group-hover:gap-3 transition-all"
-                          whileHover={{ x: 4 }}
-                        >
-                          View Case Study
-                          <ChevronRight size={16} />
-                        </motion.a>
-                      ) : (
-                        <span className="inline-flex items-center gap-2 text-sm font-medium text-gray-400">
-                          Coming Soon
-                          <ChevronRight size={16} />
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* Color hover overlay */}
-                  <div
-                    className={`absolute inset-0 ${project.image} opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none`}
-                  />
-                </motion.article>
-              );
-            })}
           </div>
+
           {/* Infinite Loop Text - Single Row */}
-          <div className="col-span-1 lg:col-span-2 py-8 overflow-hidden border-y border-gray-200">
+          <div className="py-8 overflow-hidden border-y border-gray-200 mt-16">
             <motion.div
               className="flex flex-nowrap whitespace-nowrap"
               animate={{
@@ -348,49 +311,286 @@ const Projects = () => {
               }}
             >
               <span className="text-gray-300 text-2xl md:text-8xl lg:text-9xl font-display font-bold tracking-tight opacity-30">
-                ✦ AWARD WINNING PROJECT ✦ AWARD WINNING PROJECT ✦ AWARD WINNING
-                PROJECT ✦
+                ✦ FEATURED PROJECT ✦ FEATURED PROJECT ✦ FEATURED PROJECT ✦
               </span>
               <span className="text-gray-300 text-2xl md:text-8xl lg:text-9xl font-display font-bold tracking-tight opacity-30 ml-8">
-                ✦ AWARD WINNING PROJECT ✦ AWARD WINNING PROJECT ✦ AWARD WINNING
-                PROJECT ✦
+                ✦ FEATURED PROJECT ✦ FEATURED PROJECT ✦ FEATURED PROJECT ✦
               </span>
             </motion.div>
           </div>
-
-          {/* CTA Section - Minimal */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mt-32 text-center"
-          >
-            <div className="max-w-2xl mx-auto">
-              <h3 className="text-3xl md:text-4xl font-display font-bold mb-6">
-                Have an interesting project?
-              </h3>
-              <p className="text-gray-600 text-lg mb-10">
-                Let's collaborate to create something exceptional together
-              </p>
-              <motion.a
-                href="#contact"
-                onClick={(e) => handleAnchorScroll(e, "contact")}
-                className="inline-flex items-center gap-3 px-8 py-4 bg-gray-900 text-white font-medium hover:bg-gray-800 transition-all duration-300 border border-gray-900 group"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                Start a Conversation
-                <ChevronRight
-                  size={18}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
-              </motion.a>
-            </div>
-          </motion.div>
         </div>
       </div>
+
+      {/* Full-Screen Project Showcase */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectShowcase
+            project={selectedProject}
+            onClose={closeProject}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 };
+
+// Clean mock UI shown inside a browser frame in the full-screen preview
+// (uses explicit pixel values because the site's Tailwind spacing scale is doubled)
+const MockLanding = ({ project }) => (
+  <div className="bg-white">
+    {/* Mini navbar */}
+    <div className="flex items-center justify-between px-[24px] md:px-[40px] py-[14px] border-b border-gray-100">
+      <div className="flex items-center gap-[10px]">
+        <span
+          className={`w-[20px] h-[20px] rounded bg-gradient-to-br ${project.accent}`}
+        />
+        <span className="h-[10px] w-[80px] bg-gray-300 rounded-full" />
+      </div>
+      <div className="hidden sm:flex items-center gap-[16px]">
+        <span className="h-[8px] w-[40px] bg-gray-200 rounded-full" />
+        <span className="h-[8px] w-[40px] bg-gray-200 rounded-full" />
+        <span className="h-[8px] w-[40px] bg-gray-200 rounded-full" />
+      </div>
+      <span
+        className={`h-[28px] w-[80px] rounded-lg bg-gradient-to-r ${project.accent}`}
+      />
+    </div>
+
+    {/* Hero */}
+    <div className="px-[24px] md:px-[40px] py-[40px] md:py-[56px] grid sm:grid-cols-2 gap-[24px] items-center">
+      <div>
+        <span
+          className={`inline-block h-[8px] w-[64px] bg-gradient-to-r ${project.accent} rounded-full mb-[16px]`}
+        />
+        <div className="space-y-[10px] mb-[24px]">
+          <div className="h-[18px] w-4/5 bg-gray-800 rounded-full" />
+          <div className="h-[18px] w-3/5 bg-gray-800 rounded-full" />
+        </div>
+        <div className="space-y-[8px] mb-[24px]">
+          <div className="h-[8px] w-full bg-gray-200 rounded-full" />
+          <div className="h-[8px] w-5/6 bg-gray-200 rounded-full" />
+          <div className="h-[8px] w-2/3 bg-gray-200 rounded-full" />
+        </div>
+        <div className="flex gap-[12px]">
+          <span
+            className={`h-[36px] w-[112px] rounded-lg bg-gradient-to-r ${project.accent}`}
+          />
+          <span className="h-[36px] w-[112px] rounded-lg border-2 border-gray-800" />
+        </div>
+      </div>
+      <div
+        className={`aspect-[4/3] rounded-2xl bg-gradient-to-br ${project.accent}`}
+      />
+    </div>
+
+    {/* Feature / product cards */}
+    <div className="px-[24px] md:px-[40px] pb-[48px] grid grid-cols-1 sm:grid-cols-3 gap-[24px]">
+      {["opacity-90", "opacity-70", "opacity-50"].map((opacity, i) => (
+        <div
+          key={i}
+          className="border border-gray-100 rounded-xl p-[16px] shadow-sm"
+        >
+          <div
+            className={`aspect-[4/3] rounded-lg bg-gradient-to-br ${project.accent} ${opacity} mb-[16px]`}
+          />
+          <span className="block h-[10px] w-3/4 bg-gray-300 rounded-full mb-[8px]" />
+          <span className="block h-[8px] w-1/2 bg-gray-200 rounded-full" />
+        </div>
+      ))}
+    </div>
+  </div>
+);
+
+const MockDashboard = ({ project }) => (
+  <div className="flex bg-gray-50 min-h-[420px]">
+    {/* Sidebar */}
+    <div className="hidden sm:flex w-44 shrink-0 flex-col gap-[12px] border-r border-gray-200 bg-white p-[16px]">
+      <div className="flex items-center gap-[10px] mb-[12px]">
+        <span
+          className={`w-[20px] h-[20px] rounded bg-gradient-to-br ${project.accent}`}
+        />
+        <span className="h-[10px] w-[64px] bg-gray-300 rounded-full" />
+      </div>
+      {["w-[96px]", "w-[80px]", "w-[112px]", "w-[80px]", "w-[96px]"].map(
+        (w, i) => (
+          <div
+            key={i}
+            className={`flex items-center gap-[8px] rounded-lg px-[8px] py-[8px] ${
+              i === 0 ? `bg-gradient-to-r ${project.accent}` : ""
+            }`}
+          >
+            <span
+              className={`w-[12px] h-[12px] rounded ${
+                i === 0 ? "bg-white/70" : "bg-gray-300"
+              }`}
+            />
+            <span
+              className={`h-[8px] ${w} rounded-full ${
+                i === 0 ? "bg-white/80" : "bg-gray-200"
+              }`}
+            />
+          </div>
+        ),
+      )}
+    </div>
+
+    {/* Main panel */}
+    <div className="flex-1 p-[16px] md:p-[24px] space-y-[24px]">
+      {/* Stat cards */}
+      <div className="grid grid-cols-3 gap-[12px] md:gap-[16px]">
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className="bg-white border border-gray-100 rounded-xl p-[12px] md:p-[16px] shadow-sm"
+          >
+            <span className="block h-[8px] w-[48px] bg-gray-200 rounded-full mb-[8px]" />
+            <span className="block h-[16px] w-[64px] bg-gray-800 rounded-full mb-[8px]" />
+            <span
+              className={`block h-[6px] w-[40px] rounded-full bg-gradient-to-r ${project.accent}`}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Chart */}
+      <div className="bg-white border border-gray-100 rounded-xl p-[16px] md:p-[24px] shadow-sm">
+        <span className="block h-[10px] w-[96px] bg-gray-300 rounded-full mb-[16px]" />
+        <div className="flex items-end gap-[8px] md:gap-[12px] h-28">
+          {[40, 65, 50, 85, 75, 95, 60].map((h, i) => (
+            <div
+              key={i}
+              className={`flex-1 rounded-t-md bg-gradient-to-t ${project.accent} ${
+                i === 5 ? "" : "opacity-70"
+              }`}
+              style={{ height: `${h}%` }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Table rows */}
+      <div className="bg-white border border-gray-100 rounded-xl p-[16px] md:p-[24px] shadow-sm space-y-[12px]">
+        {[0, 1, 2, 3].map((i) => (
+          <div key={i} className="flex items-center gap-[12px]">
+            <span
+              className={`w-[28px] h-[28px] rounded-full bg-gradient-to-br ${project.accent} ${
+                i % 2 ? "opacity-60" : ""
+              }`}
+            />
+            <span className="h-[8px] flex-1 max-w-[180px] bg-gray-200 rounded-full" />
+            <span className="h-[8px] w-[56px] bg-gray-100 rounded-full hidden sm:block" />
+            <span
+              className={`h-[20px] w-[64px] rounded-full bg-gradient-to-r ${project.accent} opacity-80`}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+);
+
+// Full-screen showcase — like a clean landing page / dashboard preview for HR or clients
+const ProjectShowcase = ({ project, onClose }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: 40 }}
+    transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+    className="fixed inset-0 z-50 bg-white overflow-y-auto overscroll-contain"
+    data-lenis-prevent
+  >
+    {/* Top bar */}
+    <div className="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-gray-200">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-[12px] min-w-0">
+          <span
+            className={`w-[12px] h-[12px] rounded-sm bg-gradient-to-br ${project.accent} shrink-0`}
+          />
+          <span className="font-display font-bold truncate">
+            {project.title}
+          </span>
+        </div>
+        <button
+          onClick={onClose}
+          className="inline-flex items-center gap-[8px] px-[16px] py-[8px] text-sm font-medium border border-gray-300 rounded-lg hover:bg-gray-900 hover:text-white hover:border-gray-900 transition-all duration-300 shrink-0"
+        >
+          Close
+          <X size={16} />
+        </button>
+      </div>
+    </div>
+
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-[64px]">
+      {/* Intro */}
+      <span className="text-sm font-mono text-gray-500">{project.year}</span>
+      <h3 className="text-4xl md:text-6xl font-display font-bold mt-2 mb-6 tracking-tight">
+        {project.title}
+      </h3>
+      <p className="text-gray-600 text-lg max-w-2xl mb-[32px] leading-relaxed">
+        {project.description}
+      </p>
+      <div className="mb-[48px]">
+        <h4 className="text-xs font-mono uppercase tracking-[0.15em] text-gray-500 mb-[16px]">
+          Technology Stack
+        </h4>
+        <div className="flex flex-wrap gap-[10px]">
+          {project.tech.map((tech) => (
+            <span
+              key={tech}
+              className="inline-flex items-center gap-[8px] px-[14px] py-[8px] bg-white border border-gray-200 rounded-lg text-sm text-gray-700 shadow-sm"
+            >
+              <span className="text-gray-900">{getTechIcon(tech)}</span>
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Browser frame with project UI preview */}
+      <div className="rounded-2xl border border-gray-200 overflow-hidden shadow-xl bg-white">
+        {/* Browser chrome */}
+        <div className="h-[44px] bg-gray-100 border-b border-gray-200 flex items-center gap-[8px] px-[16px]">
+          <span className="flex gap-[6px]">
+            <span className="w-[12px] h-[12px] rounded-full bg-red-400" />
+            <span className="w-[12px] h-[12px] rounded-full bg-yellow-400" />
+            <span className="w-[12px] h-[12px] rounded-full bg-green-400" />
+          </span>
+          <span className="ml-[16px] flex-1 max-w-md h-[24px] bg-white border border-gray-200 rounded-md flex items-center px-[10px] text-xs text-gray-500 font-mono truncate">
+            {project.url}
+          </span>
+        </div>
+
+        {/* Real screenshot preview (falls back to the generated mock UI) */}
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={`${project.title} website preview`}
+            className="w-full h-auto block"
+            loading="lazy"
+          />
+        ) : project.layout === "dashboard" ? (
+          <MockDashboard project={project} />
+        ) : (
+          <MockLanding project={project} />
+        )}
+      </div>
+
+      {/* Actions */}
+      {project.github && project.github !== "#" && (
+        <div className="mt-[48px] flex items-center gap-[16px]">
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-[8px] px-[24px] py-[12px] bg-gray-900 text-white rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300"
+          >
+            <Github size={18} />
+            View Code
+          </a>
+        </div>
+      )}
+    </div>
+  </motion.div>
+);
 
 export default Projects;

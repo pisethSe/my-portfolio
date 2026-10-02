@@ -18,7 +18,6 @@ const Navbar = () => {
       { label: "About", href: "#about" },
       { label: "Skills", href: "#skills" },
       { label: "Work", href: "#work" },
-      { label: "Testimonials", href: "#testimonials" },
       { label: "Contact", href: "#contact" },
     ],
     [],
@@ -56,7 +55,7 @@ const Navbar = () => {
     const element = document.getElementById(targetId);
 
     if (element) {
-      const offset = 88;
+      const offset = 80;
       const targetY =
         element.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({
@@ -94,16 +93,16 @@ const Navbar = () => {
       className={clsx(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
         "backdrop-blur-md supports-[backdrop-filter]:bg-white/95",
-        isScrolled ? "shadow-md py-2" : "py-4",
+        isScrolled ? "shadow-md py-1" : "py-2",
       )}
     >
       <div className="container-custom">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-14">
           {/* Logo */}
           <motion.a
             href="#home"
             onClick={(e) => handleNavClick(e, "#home")}
-            className="text-2xl font-display font-bold tracking-tight group"
+            className="text-xl font-display font-bold tracking-tight group"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -114,7 +113,7 @@ const Navbar = () => {
           </motion.a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6">
+          <div className="hidden lg:flex items-center space-x-4">
             {navItems.map((item) => {
               const isActive = activeSection === item.href.replace("#", "");
               return (
@@ -122,7 +121,7 @@ const Navbar = () => {
                   <motion.button
                     onClick={(e) => handleNavClick(e, item.href)}
                     className={clsx(
-                      "relative px-4 py-2 text-sm font-medium transition-all duration-200",
+                      "relative px-3 py-1.5 text-sm font-medium transition-all duration-200",
                       isActive
                         ? "text-gray-900"
                         : "text-gray-600 hover:text-gray-900",
@@ -153,7 +152,7 @@ const Navbar = () => {
             <motion.a
               href="/Piseth-CV.pdf"
               download="Piseth-CV.pdf"
-              className="ml-4 px-6 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-full hover:bg-gray-800 transition-all duration-300 flex items-center gap-2 shadow-md"
+              className="ml-3 px-4 py-2 bg-gray-900 text-white text-xs font-medium rounded-full hover:bg-gray-800 transition-all duration-300 flex items-center gap-2 shadow-md"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1)",
@@ -161,7 +160,7 @@ const Navbar = () => {
               whileTap={{ scale: 0.95 }}
             >
               Download CV
-              <ChevronRight size={16} />
+              <ChevronRight size={14} />
             </motion.a>
           </div>
 
@@ -180,7 +179,7 @@ const Navbar = () => {
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
                 >
-                  <X size={24} />
+                  <X size={20} />
                 </motion.div>
               ) : (
                 <motion.div
@@ -189,7 +188,7 @@ const Navbar = () => {
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: -90, opacity: 0 }}
                 >
-                  <Menu size={24} />
+                  <Menu size={20} />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -207,7 +206,7 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
             className="lg:hidden bg-white/95 backdrop-blur-md border-t border-gray-200 overflow-hidden shadow-lg"
           >
-            <div className="container-custom py-4">
+            <div className="container-custom py-3">
               <div className="space-y-1">
                 {navItems.map((item, index) => {
                   const isActive = activeSection === item.href.replace("#", "");
@@ -219,7 +218,7 @@ const Navbar = () => {
                       transition={{ delay: index * 0.05 }}
                       onClick={(e) => handleNavClick(e, item.href)}
                       className={clsx(
-                        "w-full text-left px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 flex items-center justify-between",
+                        "w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center justify-between",
                         isActive
                           ? "bg-gray-100 text-gray-900"
                           : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
@@ -246,10 +245,10 @@ const Navbar = () => {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: navItems.length * 0.05 }}
                   onClick={(e) => handleNavClick(e, "#contact")}
-                  className="w-full mt-4 px-4 py-3 bg-gray-900 text-white text-base font-medium rounded-lg hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center gap-2 shadow-md"
+                  className="w-full mt-3 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors duration-300 flex items-center justify-center gap-2 shadow-md"
                 >
                   Start Project
-                  <ChevronRight size={20} />
+                  <ChevronRight size={16} />
                 </motion.button>
               </div>
             </div>

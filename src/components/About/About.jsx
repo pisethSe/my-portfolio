@@ -2,24 +2,29 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Briefcase, Award } from "lucide-react";
+import { MapPin, Award, Heart, Clock } from "lucide-react";
 
 // thsi part is call about section
 const About = () => {
   const timeline = [
-    {
-      role: "Lead Frontend Developer",
-    },
-    {
-      role: "UI/UX Designer",
-    },
-    { role: "Full Stack Developer" },
+    { role: "Graphic Design" },
+    { role: "Full-Stack Developer" },
+    { role: "Problem Solver" },
   ];
 
   const facts = [
-    { icon: <Briefcase />, value: "5+", label: "Projects Completed" },
-    { icon: <Award />, value: "3+", label: "Awards Won" },
-    { icon: <MapPin />, value: "Remote", label: "Based Worldwide" },
+    {
+      icon: <Heart className="w-5 h-5 text-black" fill="currentColor" />,
+      value: "5+",
+      label: "Complete Projects",
+    },
+    { icon: <Clock className="w-5 h-5" />, value: "3", label: "Months Experience" },
+    { icon: <Award className="w-5 h-5" />, value: "3+", label: "Certificates" },
+    {
+      icon: <MapPin className="w-5 h-5" />,
+      value: "Remote / On-site",
+      label: "Available for work",
+    },
   ];
 
   return (
@@ -35,14 +40,16 @@ const About = () => {
               transition={{ duration: 0.6 }}
               className="space-y-8"
             >
-              {/* Profile Image */}
+              {/* About Video */}
               <div className="relative w-full max-w-[500px] mx-auto lg:mx-0">
-                <div className="aspect-square overflow-hidden rounded-xl border border-gray-200">
-                  <img
-                    src="https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyc2N0dWl1eXdueTFyczhjb2M0c3EzdzRiOGZ6eTI2d2FjMXN2eHIwNiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/78XCFBGOlS6keY1Bil/200w.gif"
-                    alt="Profile animation"
+                <div className="aspect-square overflow-hidden rounded-xl border border-gray-200 bg-black">
+                  <video
+                    src="/about-video.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
                     className="w-full h-full object-cover"
-                    loading="lazy"
                   />
                 </div>
               </div>
@@ -76,25 +83,59 @@ const About = () => {
               transition={{ duration: 0.6 }}
               className="pt-0 lg:pt-8"
             >
-              <span className="inline-block text-sm font-medium text-gray-600 mb-4">
-                ABOUT ME
-              </span>
               <h2 className="text-3xl md:text-4xl font-display font-semibold mb-6">
-                Crafting digital experiences with precision and purpose
+                About Me
               </h2>
               <div className="space-y-4 text-gray-700 mb-8">
                 <p>
-                  I began my software development journey by building full stack
-                  applications using modern technologies such as React.js,
-                  Node.js, FastAPI, and PostgreSQL. Through academic and
-                  personal projects, I gained hands-on experience in frontend
-                  development, backend API design, database management, and
-                  cloud integration.
+                  I'm a software developer passionate about creating{" "}
+                  <strong className="font-semibold text-gray-900">
+                    high-quality digital experiences that people enjoy using
+                  </strong>
+                  .
                 </p>
                 <p>
-                  My approach blends strategic thinking with meticulous
-                  execution, ensuring every pixel and interaction serves a
-                  purpose.
+                  My journey began with full-stack development, where I've
+                  worked with technologies including{" "}
+                  <strong className="font-semibold text-gray-900">
+                    React.js, Next.js, Node.js, Express.js, NestJS, Laravel,
+                    FastAPI, and PostgreSQL
+                  </strong>
+                  . Through academic and personal projects, I've developed
+                  practical experience across{" "}
+                  <strong className="font-semibold text-gray-900">
+                    frontend development, backend engineering, API design,
+                    databases, documentation, prompt engineering, deployment,
+                    and system integration
+                  </strong>
+                  .
+                </p>
+                <p>
+                  I combine{" "}
+                  <strong className="font-semibold text-gray-900">
+                    creative problem-solving, strategic thinking, and attention
+                    to detail
+                  </strong>{" "}
+                  to transform ideas into reliable and scalable products. From
+                  the first interaction to the underlying architecture, I care
+                  about making every part of an application purposeful.
+                </p>
+                <p>
+                  I believe great software is more than functional—it should be{" "}
+                  <strong className="font-semibold text-gray-900">
+                    fast, intuitive, accessible, maintainable, and visually
+                    polished
+                  </strong>
+                  .
+                </p>
+                <p>
+                  I'm always learning, experimenting with new technologies, and
+                  looking for better ways to build. My goal is to create{" "}
+                  <strong className="font-semibold text-gray-900">
+                    meaningful software with exceptional user experiences and
+                    uncompromising quality
+                  </strong>
+                  .
                 </p>
               </div>
 
@@ -117,12 +158,8 @@ const About = () => {
                         transition={{ delay: index * 0.1 }}
                         className="flex items-start gap-4 pb-4 border-b border-gray-100 last:border-0"
                       >
-                        <div className="text-sm font-medium text-gray-600 min-w-24">
-                          {item.year}
-                        </div>
                         <div className="flex-1">
                           <div className="font-medium">{item.role}</div>
-                          <div className="text-gray-600">{item.company}</div>
                         </div>
                       </motion.div>
                     ),

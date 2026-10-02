@@ -1,7 +1,7 @@
 // src/components/Skills/Skills.jsx
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Code,
@@ -11,128 +11,131 @@ import {
   CheckCircle,
   Database,
   Cpu,
-  FileCode,
+  Rocket,
 } from "lucide-react";
-// If you installed react-icons, use these:
 
-// Keep only available imports
+// Real technology brand icons
 import {
-  SiHtml5,
-  SiCss3,
-  SiJavascript,
-  SiReact,
   SiTypescript,
+  SiReact,
+  SiNextdotjs,
   SiTailwindcss,
   SiNodedotjs,
   SiExpress,
-  SiPostgresql,
+  SiNestjs,
+  SiLaravel,
+  SiFastapi,
+  SiAdobephotoshop,
   SiMysql,
   SiMicrosoftsqlserver,
+  SiPostgresql,
+  SiSqlite,
+  SiRedis,
+  SiDocker,
+  SiGithubactions,
 } from "react-icons/si";
+
+// Tech logo data with colors AND real icons
+// Follows the Skills & Capabilities categories above
+const techLogos = [
+  // Frontend Development
+    {
+      name: "TypeScript",
+      color: "from-blue-500 to-blue-700",
+      icon: <SiTypescript className="w-[28px] h-[28px] text-[#3178C6]" />,
+    },
+    {
+      name: "React.js",
+      color: "from-cyan-400 to-blue-500",
+      icon: <SiReact className="w-[28px] h-[28px] text-[#61DAFB]" />,
+    },
+    {
+      name: "Next.js",
+      color: "from-gray-700 to-gray-900",
+      icon: <SiNextdotjs className="w-[28px] h-[28px] text-black" />,
+    },
+    {
+      name: "Tailwind CSS",
+      color: "from-teal-400 to-cyan-500",
+      icon: <SiTailwindcss className="w-[28px] h-[28px] text-[#06B6D4]" />,
+    },
+
+    // Backend & APIs
+    {
+      name: "Node.js",
+      color: "from-green-500 to-green-700",
+      icon: <SiNodedotjs className="w-[28px] h-[28px] text-[#339933]" />,
+    },
+    {
+      name: "Express",
+      color: "from-gray-400 to-gray-600",
+      icon: <SiExpress className="w-[28px] h-[28px] text-black" />,
+    },
+    {
+      name: "NestJS",
+      color: "from-red-500 to-rose-600",
+      icon: <SiNestjs className="w-[28px] h-[28px] text-[#E0234E]" />,
+    },
+    {
+      name: "Laravel",
+      color: "from-orange-500 to-red-500",
+      icon: <SiLaravel className="w-[28px] h-[28px] text-[#FF2D20]" />,
+    },
+    {
+      name: "FastAPI",
+      color: "from-teal-500 to-emerald-600",
+      icon: <SiFastapi className="w-[28px] h-[28px] text-[#009688]" />,
+    },
+
+    // Graphic Design
+    {
+      name: "Photoshop",
+      color: "from-blue-400 to-blue-600",
+      icon: <SiAdobephotoshop className="w-[28px] h-[28px] text-[#31A8FF]" />,
+    },
+
+    // Databases
+    {
+      name: "MySQL",
+      color: "from-blue-500 to-blue-700",
+      icon: <SiMysql className="w-[28px] h-[28px] text-[#4479A1]" />,
+    },
+    {
+      name: "SQL Server",
+      color: "from-red-500 to-red-700",
+      icon: <SiMicrosoftsqlserver className="w-[28px] h-[28px] text-[#CC2927]" />,
+    },
+    {
+      name: "PostgreSQL",
+      color: "from-blue-400 to-blue-600",
+      icon: <SiPostgresql className="w-[28px] h-[28px] text-[#4169E1]" />,
+    },
+    {
+      name: "SQLite",
+      color: "from-slate-500 to-gray-700",
+      icon: <SiSqlite className="w-[28px] h-[28px] text-[#003B57]" />,
+    },
+    {
+      name: "Redis",
+      color: "from-rose-500 to-red-600",
+      icon: <SiRedis className="w-[28px] h-[28px] text-[#DC382D]" />,
+    },
+
+    // Deployment
+    {
+      name: "Docker",
+      color: "from-sky-500 to-blue-600",
+      icon: <SiDocker className="w-[28px] h-[28px] text-[#2496ED]" />,
+    },
+    {
+      name: "GitHub Actions",
+      color: "from-gray-700 to-gray-900",
+      icon: <SiGithubactions className="w-[28px] h-[28px] text-[#2088FF]" />,
+    },
+];
 
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState(0);
-
-  // Tech logo data with colors AND real icons
-  // Updated techLogos array with all technologies
-
-  const techLogos = useMemo(
-    () => [
-      // Frontend Basics
-      {
-        name: "HTML",
-        color: "from-orange-500 to-orange-600",
-        icon: <SiHtml5 className="w-6 h-6 text-[#E34F26]" />,
-      },
-      {
-        name: "CSS",
-        color: "from-blue-500 to-blue-600",
-        icon: <SiCss3 className="w-6 h-6 text-[#1572B6]" />,
-      },
-      {
-        name: "JavaScript",
-        color: "from-yellow-400 to-yellow-500",
-        icon: <SiJavascript className="w-6 h-6 text-[#F7DF1E]" />,
-      },
-
-      // Frontend Development
-      {
-        name: "React.js",
-        color: "from-cyan-400 to-blue-500",
-        icon: <SiReact className="w-6 h-6 text-[#61DAFB]" />,
-      },
-      {
-        name: "TypeScript",
-        color: "from-blue-500 to-blue-700",
-        icon: <SiTypescript className="w-6 h-6 text-[#007ACC]" />,
-      },
-      {
-        name: "Tailwind CSS",
-        color: "from-teal-400 to-cyan-500",
-        icon: <SiTailwindcss className="w-6 h-6 text-[#06B6D4]" />,
-      },
-      {
-        name: "Framer Motion",
-        color: "from-purple-500 to-pink-500",
-        icon: <Cpu className="w-6 h-6 text-[#ec4899]" />,
-      },
-      {
-        name: "GSAP",
-        color: "from-green-500 to-lime-500",
-        icon: <Cpu className="w-6 h-6 text-[#84cc16]" />,
-      },
-
-      // Backend & APIs
-      {
-        name: "Node.js",
-        color: "from-green-500 to-green-700",
-        icon: <SiNodedotjs className="w-6 h-6 text-[#339933]" />,
-      },
-      {
-        name: "Express",
-        color: "from-gray-400 to-gray-600",
-        icon: <SiExpress className="w-6 h-6 text-black" />,
-      },
-      {
-        name: "JWT",
-        color: "from-orange-500 to-amber-500",
-        icon: <FileCode className="w-6 h-6 text-[#f97316]" />,
-      },
-      {
-        name: "OAuth2",
-        color: "from-indigo-500 to-purple-500",
-        icon: <Server className="w-6 h-6 text-[#6366f1]" />,
-      },
-      {
-        name: "REST API",
-        color: "from-sky-500 to-cyan-500",
-        icon: <Server className="w-6 h-6 text-[#0ea5e9]" />,
-      },
-
-      // Databases
-      {
-        name: "PostgreSQL",
-        color: "from-blue-400 to-blue-600",
-        icon: <SiPostgresql className="w-6 h-6 text-[#336791]" />,
-      },
-      {
-        name: "MySQL",
-        color: "from-blue-500 to-blue-700",
-        icon: <SiMysql className="w-6 h-6 text-[#4479A1]" />,
-      },
-      {
-        name: "SQL Server",
-        color: "from-red-500 to-red-700",
-        icon: <SiMicrosoftsqlserver className="w-6 h-6 text-[#CC2927]" />,
-      },
-      {
-        name: "SQLite",
-        color: "from-slate-500 to-gray-700",
-        icon: <Database className="w-6 h-6 text-[#64748b]" />,
-      },
-    ],
-    [],
-  );
 
   // State for auto-flipping cards
   const [flippedCards, setFlippedCards] = useState({});
@@ -153,44 +156,37 @@ const Skills = () => {
 
     // Cleanup intervals on component unmount
     return () => intervals.forEach((interval) => clearInterval(interval));
-  }, [techLogos]);
+  }, []);
 
-  // Updated getTechCategory with all technologies
+  // Category info for each technology
   const getTechCategory = (techName) => {
     const categories = {
-      // Frontend Basics
-      HTML: { name: "Markup", icon: <Code className="w-3 h-3" /> },
-      CSS: { name: "Styling", icon: <Palette className="w-3 h-3" /> },
-      JavaScript: { name: "Language", icon: <FileCode className="w-3 h-3" /> },
-
-      // Frontend Frameworks
+      // Frontend Development
+      TypeScript: { name: "Frontend", icon: <Code className="w-3 h-3" /> },
       "React.js": { name: "Frontend", icon: <Code className="w-3 h-3" /> },
-      TypeScript: { name: "Language", icon: <FileCode className="w-3 h-3" /> },
-      "Tailwind CSS": {
-        name: "CSS Framework",
-        icon: <Palette className="w-3 h-3" />,
-      },
-      "Framer Motion": {
-        name: "Animation",
-        icon: <Cpu className="w-3 h-3" />,
-      },
-      GSAP: { name: "Animation", icon: <Cpu className="w-3 h-3" /> },
+      "Next.js": { name: "Frontend", icon: <Code className="w-3 h-3" /> },
+      "Tailwind CSS": { name: "Frontend", icon: <Palette className="w-3 h-3" /> },
 
       // Backend & APIs
       "Node.js": { name: "Backend", icon: <Server className="w-3 h-3" /> },
       Express: { name: "Backend", icon: <Server className="w-3 h-3" /> },
-      JWT: { name: "Authentication", icon: <FileCode className="w-3 h-3" /> },
-      OAuth2: { name: "Authentication", icon: <Server className="w-3 h-3" /> },
-      "REST API": { name: "API", icon: <Server className="w-3 h-3" /> },
+      NestJS: { name: "Backend", icon: <Server className="w-3 h-3" /> },
+      Laravel: { name: "Backend", icon: <Server className="w-3 h-3" /> },
+      FastAPI: { name: "API", icon: <Server className="w-3 h-3" /> },
+
+      // Graphic Design
+      Photoshop: { name: "Design", icon: <Palette className="w-3 h-3" /> },
 
       // Databases
-      PostgreSQL: { name: "Database", icon: <Database className="w-3 h-3" /> },
       MySQL: { name: "Database", icon: <Database className="w-3 h-3" /> },
-      "SQL Server": {
-        name: "Database",
-        icon: <Database className="w-3 h-3" />,
-      },
+      "SQL Server": { name: "Database", icon: <Database className="w-3 h-3" /> },
+      PostgreSQL: { name: "Database", icon: <Database className="w-3 h-3" /> },
       SQLite: { name: "Database", icon: <Database className="w-3 h-3" /> },
+      Redis: { name: "Database", icon: <Database className="w-3 h-3" /> },
+
+      // Deployment
+      Docker: { name: "DevOps", icon: <Rocket className="w-3 h-3" /> },
+      "GitHub Actions": { name: "DevOps", icon: <Rocket className="w-3 h-3" /> },
     };
 
     return (
@@ -203,30 +199,32 @@ const Skills = () => {
 
   const getTechLevel = (techName) => {
     const levels = {
-      // Frontend Basics
-      HTML: 98,
-      CSS: 95,
-      JavaScript: 96,
-
-      // Frontend Frameworks
-      "React.js": 96,
+      // Frontend Development
       TypeScript: 92,
+      "React.js": 95,
+      "Next.js": 90,
       "Tailwind CSS": 95,
-      "Framer Motion": 88,
-      GSAP: 86,
 
       // Backend & APIs
       "Node.js": 92,
       Express: 90,
-      JWT: 90,
-      OAuth2: 88,
-      "REST API": 91,
+      NestJS: 88,
+      Laravel: 86,
+      FastAPI: 89,
+
+      // Graphic Design
+      Photoshop: 90,
 
       // Databases
-      PostgreSQL: 88,
       MySQL: 90,
       "SQL Server": 88,
+      PostgreSQL: 89,
       SQLite: 86,
+      Redis: 85,
+
+      // Deployment
+      Docker: 88,
+      "GitHub Actions": 87,
     };
 
     return levels[techName] || 85;
@@ -235,51 +233,41 @@ const Skills = () => {
   const skillCategories = [
     {
       id: "frontend",
-      icon: <Code className="w-5 h-5" />,
+      icon: <Code className="w-[18px] h-[18px]" />,
       title: "Frontend Development",
       description: "Building modern interactive UIs",
       skills: [
-        {
-          name: "React.js",
-          level: 96,
-          color: "from-blue-500 to-cyan-500",
-        },
-        {
-          name: "JavaScript",
-          level: 95,
-          color: "from-yellow-400 to-amber-500",
-        },
         {
           name: "TypeScript",
           level: 92,
           color: "from-blue-600 to-indigo-500",
         },
         {
+          name: "React.js",
+          level: 95,
+          color: "from-blue-500 to-cyan-500",
+        },
+        {
+          name: "Next.js",
+          level: 90,
+          color: "from-gray-700 to-gray-900",
+        },
+        {
           name: "Tailwind CSS",
           level: 95,
           color: "from-teal-500 to-emerald-500",
         },
-        {
-          name: "Framer Motion",
-          level: 88,
-          color: "from-purple-500 to-pink-500",
-        },
-        {
-          name: "GSAP",
-          level: 86,
-          color: "from-green-500 to-lime-500",
-        },
       ],
       features: [
         "Component Architecture",
-        "JavaScript & TypeScript",
+        "TypeScript",
         "Performance Optimization",
-        "Interactive Animations",
+        "Responsive Design",
       ],
     },
     {
       id: "backend",
-      icon: <Server className="w-5 h-5" />,
+      icon: <Server className="w-[18px] h-[18px]" />,
       title: "Backend & APIs",
       description: "Building scalable server-side solutions",
       skills: [
@@ -289,63 +277,52 @@ const Skills = () => {
           color: "from-green-500 to-emerald-500",
         },
         {
-          name: "JWT",
-          level: 90,
-          color: "from-orange-500 to-amber-500",
-        },
-        {
-          name: "OAuth2",
+          name: "NestJS",
           level: 88,
-          color: "from-indigo-500 to-violet-500",
+          color: "from-red-500 to-rose-500",
         },
         {
-          name: "REST API",
-          level: 91,
-          color: "from-sky-500 to-cyan-500",
+          name: "Laravel",
+          level: 86,
+          color: "from-orange-500 to-red-500",
+        },
+        {
+          name: "FastAPI",
+          level: 89,
+          color: "from-teal-500 to-cyan-500",
         },
       ],
       features: [
-        "Node.js/Express",
-        "JWT Authentication",
-        "OAuth2 Authorization",
         "REST API Development",
+        "JWT Authentication",
+        "System Integration",
+        "Scalable Architecture",
       ],
     },
     {
       id: "design",
-      icon: <Palette className="w-5 h-5" />,
-      title: "UI/UX Design",
-      description: "Creating beautiful and functional user experiences",
+      icon: <Palette className="w-[18px] h-[18px]" />,
+      title: "Graphic Design",
+      description: "Creating clean visual content with Photoshop",
       skills: [
-        { name: "Figma", level: 94, color: "from-purple-500 to-pink-500" },
         {
-          name: "User Research",
-          level: 88,
-          color: "from-orange-500 to-amber-500",
-        },
-        {
-          name: "Prototyping",
-          level: 92,
-          color: "from-cyan-500 to-blue-500",
-        },
-        {
-          name: "Design Systems",
+          name: "Photoshop",
           level: 90,
-          color: "from-violet-500 to-purple-500",
+          color: "from-blue-400 to-blue-600",
         },
       ],
       features: [
-        "User Flows",
-        "Wireframing",
-        "Design Systems",
-        "Usability Testing",
+        "Photo Editing",
+        "Visual Content",
+        "Layout Design",
+        "Retouching",
       ],
     },
     {
       id: "database",
-      icon: <Database className="w-5 h-5" />,
+      icon: <Database className="w-[18px] h-[18px]" />,
       title: "Database",
-      description: "Designing and managing relational databases",
+      description: "Designing and managing databases",
       skills: [
         {
           name: "MySQL",
@@ -363,12 +340,41 @@ const Skills = () => {
           color: "from-cyan-500 to-blue-500",
         },
         { name: "SQLite", level: 86, color: "from-slate-500 to-gray-600" },
+        {
+          name: "Redis",
+          level: 85,
+          color: "from-rose-500 to-red-500",
+        },
       ],
       features: [
         "Schema Design",
         "Query Optimization",
         "Data Modeling",
-        "Migrations",
+        "Caching with Redis",
+      ],
+    },
+    {
+      id: "deployment",
+      icon: <Rocket className="w-[18px] h-[18px]" />,
+      title: "Deployment",
+      description: "Shipping and automating releases",
+      skills: [
+        {
+          name: "Docker",
+          level: 88,
+          color: "from-sky-500 to-blue-600",
+        },
+        {
+          name: "GitHub Actions",
+          level: 87,
+          color: "from-gray-700 to-gray-900",
+        },
+      ],
+      features: [
+        "Containerization",
+        "CI/CD Pipelines",
+        "Automation",
+        "Cloud Deployment",
       ],
     },
   ];
@@ -408,12 +414,13 @@ const Skills = () => {
           <div className="grid lg:grid-cols-4 gap-6">
             {/* Category Selector */}
             <div className="lg:col-span-1">
-              <div className="sticky top-24 space-y-2">
+              <div className="lg:sticky lg:top-24">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
                 {skillCategories.map((category, index) => (
                   <motion.button
                     key={category.id}
                     onClick={() => setActiveCategory(index)}
-                    className={`w-full text-left p-4 rounded-lg transition-all duration-300 flex items-center gap-3 ${
+                    className={`w-full text-left p-[12px] rounded-lg transition-all duration-300 flex items-center gap-[10px] ${
                       activeCategory === index
                         ? "bg-gray-900 text-white shadow-md"
                         : "bg-gray-50 hover:bg-gray-100 text-gray-700 border border-gray-200"
@@ -422,7 +429,7 @@ const Skills = () => {
                     whileTap={{ scale: 0.98 }}
                   >
                     <div
-                      className={`p-2 rounded ${
+                      className={`p-[6px] rounded ${
                         activeCategory === index ? "bg-white/20" : "bg-white"
                       }`}
                     >
@@ -442,10 +449,11 @@ const Skills = () => {
                       </div>
                     </div>
                     {activeCategory === index && (
-                      <ChevronRight className="w-4 h-4" />
+                      <ChevronRight className="w-[16px] h-[16px]" />
                     )}
                   </motion.button>
                 ))}
+                </div>
               </div>
             </div>
 
@@ -458,7 +466,7 @@ const Skills = () => {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
                   transition={{ duration: 0.3 }}
-                  className="bg-white border border-gray-200 rounded-xl p-6"
+                  className="bg-white border border-gray-200 rounded-xl p-3 sm:p-6"
                 >
                   <div className="mb-8">
                     <div className="flex items-center gap-3 mb-4">
@@ -512,7 +520,7 @@ const Skills = () => {
                     <h4 className="text-lg font-display font-semibold mb-4">
                       Key Features
                     </h4>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                       {skillCategories[activeCategory].features.map(
                         (feature, index) => (
                           <motion.div
@@ -532,89 +540,84 @@ const Skills = () => {
                 </motion.div>
               </AnimatePresence>
 
-              {/* Technologies Grid with Styled Horizontal Scroll */}
-
-              {/* Technologies Grid - Single Grid with 2 Rows */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true }}
-                className="mt-10"
-              >
-                <div className="mb-6 px-6 sm:px-6 lg:px-8">
-                  <h4 className="text-lg font-display font-semibold text-gray-900 mb-3">
-                    Technologies & Tools
-                  </h4>
-                  <p className="text-sm text-gray-600">
-                    Cards flip automatically to show details
-                  </p>
-                </div>
-
-                {/* Single Grid - 2 Rows worth of cards */}
-                <div className="px-4 sm:px-6 lg:px-8 ">
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 lg:grid-cols-8 xl:grid-cols-6 gap-5 w-full mx-36 max-w-full gap-x-9 ">
-                    {techLogos.map((tech, index) => (
-                      <motion.div
-                        key={tech.name}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: index * 0.03 }}
-                        className="relative h-32 w-44 cursor-pointer perspective"
-                      >
-                        <div className="flip-vertical-container w-full h-full">
-                          <div
-                            className={`flip-vertical-inner w-full h-full transition-transform duration-500 ${
-                              flippedCards[tech.name] ? "rotate-x-180" : ""
-                            }`}
-                            style={{ transformStyle: "preserve-3d" }}
-                          >
-                            {/* Front Side with ONLY ICON (no text) */}
-                            <div className="flip-vertical-front absolute inset-0 bg-white rounded-lg border border-gray-200 flex flex-col items-center justify-center p-3 shadow-sm">
-                              <div className="w-16 h-16 flex items-center justify-center">
-                                {tech.icon} {/* ONLY THE ICON */}
-                              </div>
-                              {/* REMOVED: The tech.name text span */}
-                            </div>
-
-                            {/* Back */}
-                            <div
-                              className={`flip-vertical-back absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 bg-gradient-to-br ${tech.color} shadow-2xl`}
-                              style={{ transform: "rotateX(180deg)" }}
-                            >
-                              <span className="font-bold text-white text-xs text-center mb-1">
-                                {tech.name}
-                              </span>
-                              <span className="text-white/90 text-[10px] text-center mb-2">
-                                {getTechCategory(tech.name).name}{" "}
-                                {/* FIXED: Changed .icon to .name */}
-                              </span>
-                              <div className="w-full px-2">
-                                <div className="flex justify-between text-[10px] text-white/90 mb-0.5">
-                                  <span>Skill</span>
-                                  <span className="font-bold">
-                                    {getTechLevel(tech.name)}%
-                                  </span>
-                                </div>
-                                <div className="w-full h-1 bg-white/30 rounded-full overflow-hidden">
-                                  <div
-                                    className="h-full bg-white rounded-full transition-all duration-300"
-                                    style={{
-                                      width: `${getTechLevel(tech.name)}%`,
-                                    }}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
             </div>
           </div>
+
+          {/* Technologies & Tools - full width, centered on screen */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="mt-16"
+          >
+            <div className="max-w-5xl mx-auto text-center mb-[40px]">
+              <h4 className="text-lg font-display font-semibold text-gray-900 mb-3">
+                Technologies & Tools
+              </h4>
+              <p className="text-sm text-gray-600">
+                Cards flip automatically to show details
+              </p>
+            </div>
+
+            {/* Responsive flex-wrap grid, centered */}
+            <div className="flex flex-wrap justify-center gap-3 sm:gap-6">
+              {techLogos.map((tech, index) => (
+                <motion.div
+                  key={tech.name}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.03 }}
+                  className="relative h-28 w-28 sm:h-32 sm:w-40 md:w-44 cursor-pointer perspective"
+                >
+                  <div className="flip-vertical-container w-full h-full">
+                    <div
+                      className={`flip-vertical-inner w-full h-full transition-transform duration-500 ${
+                        flippedCards[tech.name] ? "rotate-x-180" : ""
+                      }`}
+                      style={{ transformStyle: "preserve-3d" }}
+                    >
+                      {/* Front Side with ONLY ICON (no text) */}
+                      <div className="flip-vertical-front absolute inset-0 bg-white rounded-lg border border-gray-200 flex flex-col items-center justify-center p-3 shadow-sm">
+                        <div className="w-16 h-16 flex items-center justify-center">
+                          {tech.icon} {/* ONLY THE ICON */}
+                        </div>
+                      </div>
+
+                      {/* Back */}
+                      <div
+                        className={`flip-vertical-back absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 bg-gradient-to-br ${tech.color} shadow-2xl`}
+                        style={{ transform: "rotateX(180deg)" }}
+                      >
+                        <span className="font-bold text-white text-xs text-center mb-1">
+                          {tech.name}
+                        </span>
+                        <span className="text-white/90 text-[10px] text-center mb-2">
+                          {getTechCategory(tech.name).name}
+                        </span>
+                        <div className="w-full px-2">
+                          <div className="flex justify-between text-[10px] text-white/90 mb-0.5">
+                            <span>Skill</span>
+                            <span className="font-bold">
+                              {getTechLevel(tech.name)}%
+                            </span>
+                          </div>
+                          <div className="w-full h-1 bg-white/30 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-white rounded-full transition-all duration-300"
+                              style={{
+                                width: `${getTechLevel(tech.name)}%`,
+                              }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </div>
       </div>
 
