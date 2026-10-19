@@ -2,7 +2,7 @@
 "use client";
 
 import { motion, useAnimation } from "framer-motion";
-import { ArrowRight, Heart } from "lucide-react";
+import { ArrowRight, ChevronDown, Heart } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 // Words that rotate in the hero heading (add or remove freely)
@@ -83,14 +83,10 @@ const CircularText = ({
   return (
     <motion.div
       ref={containerRef}
-      className={`relative ${className}`}
+      className={`relative w-[300px] h-[300px] lg:w-[560px] lg:h-[560px] ${className}`}
       animate={controls}
       onMouseEnter={handleHoverStart}
       onMouseLeave={handleHoverEnd}
-      style={{
-        width: "400px",
-        height: "400px",
-      }}
     >
       {letters.map((letter, i) => {
         const rotationDeg = (360 / letters.length) * i;
@@ -256,7 +252,7 @@ const Hero = () => {
               <div className="relative w-56 sm:w-72 md:w-full md:max-w-2xl md:ml-0 ml-auto">
                 {/* Circular Text Behind Image */}
                 <div className="absolute inset-0 flex items-center justify-center z-0">
-                  <div className="scale-[0.56] sm:scale-[0.72] md:scale-[0.68] lg:scale-100">
+                  <div className="scale-[0.56] sm:scale-[0.72] md:scale-[0.64] lg:scale-[1.25] xl:scale-[1.4] 2xl:scale-[1.55]">
                     <CircularText
                       text="✦ Creative Designer ✦✦Full Stack Developer ✦✦  flexibility ✦"
                       spinDuration={30}
@@ -300,8 +296,29 @@ const Hero = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-20 pt-12 border-t border-gray-200 w-full"
+            className="mt-20 pt-12 border-t border-gray-200 w-full relative"
           >
+            {/* Scroll-down indicator centered on the divider */}
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                scrollToSection("about");
+              }}
+              className="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 text-gray-400 hover:text-gray-900 transition-colors duration-300 cursor-pointer bg-transparent"
+              aria-label="Scroll down to the About section"
+            >
+              <motion.span
+                animate={{ y: [0, 6, 0] }}
+                transition={{
+                  duration: 1.6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="flex items-center justify-center w-9 h-9 rounded-full bg-white border border-gray-200 shadow-sm"
+              >
+                <ChevronDown size={18} />
+              </motion.span>
+            </button>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
               {[
                 { value: "^", label: "consistency" },
