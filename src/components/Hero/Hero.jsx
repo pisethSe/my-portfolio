@@ -251,7 +251,7 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative"
+              className="relative -mt-3 sm:-mt-4 lg:mt-0"
             >
               <div className="relative w-56 sm:w-72 lg:w-full lg:max-w-2xl ml-auto lg:mx-auto">
                 {/* Circular Text Behind Image */}
