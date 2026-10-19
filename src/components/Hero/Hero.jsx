@@ -253,14 +253,14 @@ const Hero = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative"
             >
-              <div className="relative w-full max-w-2xl mx-auto">
+              <div className="relative w-56 sm:w-72 lg:w-full lg:max-w-2xl ml-auto lg:mx-auto">
                 {/* Circular Text Behind Image */}
                 <div className="absolute inset-0 flex items-center justify-center z-0">
                   <CircularText
                     text="✦ Creative Designer ✦✦Full Stack Developer ✦✦  flexibility ✦"
                     spinDuration={30}
                     onHover="speedUp"
-                    className=""
+                    className="scale-75 sm:scale-90 lg:scale-100"
                   />
                 </div>
 

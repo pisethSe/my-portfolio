@@ -128,7 +128,7 @@ const Projects = () => {
       ],
       year: "2024",
       github: "https://github.com/pisethSe/E-Learning",
-      url: "https://e-learning-j2s4.onrender.com",
+      url: "https://e-learning-grade-a-front.onrender.com",
       image: "/projects/e-learning.png",
       accent: "from-emerald-500 to-green-600",
     },
@@ -555,10 +555,23 @@ const ProjectShowcase = ({ project, onClose }) => (
             <span className="w-[12px] h-[12px] rounded-full bg-yellow-400" />
             <span className="w-[12px] h-[12px] rounded-full bg-green-400" />
           </span>
-          <span className="ml-[16px] flex-1 max-w-md h-[24px] bg-white border border-gray-200 rounded-md flex items-center px-[10px] text-xs text-gray-500 font-mono truncate">
-            {project.url}
-          </span>
-        </div>
+          {project.url.startsWith("http") ? (
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Open live site"
+              aria-label={`Open live site for ${project.title}`}
+              className="ml-[16px] flex-1 max-w-md h-[24px] bg-white border border-gray-200 rounded-md flex items-center gap-[6px] px-[10px] text-xs text-gray-500 font-mono hover:text-gray-900 hover:border-gray-400 transition-colors duration-200 cursor-pointer"
+            >
+              <span className="truncate">{project.url}</span>
+              <ArrowUpRight size={11} className="ml-auto shrink-0 opacity-60" />
+            </a>
+          ) : (
+            <span className="ml-[16px] flex-1 max-w-md h-[24px] bg-white border border-gray-200 rounded-md flex items-center px-[10px] text-xs text-gray-500 font-mono truncate">
+              {project.url}
+            </span>
+          )}        </div>
 
         {/* Real screenshot preview (falls back to the generated mock UI) */}
         {project.image ? (
