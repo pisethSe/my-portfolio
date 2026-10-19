@@ -162,7 +162,7 @@ const Hero = () => {
       <div className="container-custom">
         <div className="content-wrapper">
           {/* Hero Content with Image */}
-          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-12 items-center">
             {/* Left Column - Text Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -173,12 +173,12 @@ const Hero = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.1] tracking-[-0.02em] font-display font-bold mb-5"
+                className="text-4xl lg:text-6xl xl:text-7xl leading-[1.1] tracking-[-0.02em] font-display font-bold mb-5"
               >
                 Crafting digital
                 <br />
-                experiences with{" "}
-                <span className="relative inline-grid" aria-hidden="true">
+                experiences with
+                <span className="relative ml-[0.28em] inline-grid" aria-hidden="true">
                   {ROTATING_WORDS.map((word, index) => (
                     <motion.span
                       key={word}
@@ -251,12 +251,12 @@ const Hero = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="relative -mt-3 sm:-mt-4 lg:mt-0"
+              className="relative -mt-3 sm:-mt-4 md:mt-0"
             >
-              <div className="relative w-56 sm:w-72 lg:w-full lg:max-w-2xl ml-auto lg:mx-auto">
+              <div className="relative w-56 sm:w-72 md:w-full md:max-w-2xl md:ml-0 ml-auto">
                 {/* Circular Text Behind Image */}
                 <div className="absolute inset-0 flex items-center justify-center z-0">
-                  <div className="scale-[0.56] sm:scale-[0.72] lg:scale-100">
+                  <div className="scale-[0.56] sm:scale-[0.72] md:scale-[0.68] lg:scale-100">
                     <CircularText
                       text="✦ Creative Designer ✦✦Full Stack Developer ✦✦  flexibility ✦"
                       spinDuration={30}
