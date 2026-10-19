@@ -162,7 +162,7 @@ const Hero = () => {
       <div className="container-custom">
         <div className="content-wrapper">
           {/* Hero Content with Image */}
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-6 lg:gap-12 items-center">
             {/* Left Column - Text Content */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -256,12 +256,14 @@ const Hero = () => {
               <div className="relative w-56 sm:w-72 lg:w-full lg:max-w-2xl ml-auto lg:mx-auto">
                 {/* Circular Text Behind Image */}
                 <div className="absolute inset-0 flex items-center justify-center z-0">
-                  <CircularText
-                    text="✦ Creative Designer ✦✦Full Stack Developer ✦✦  flexibility ✦"
-                    spinDuration={30}
-                    onHover="speedUp"
-                    className="scale-75 sm:scale-90 lg:scale-100"
-                  />
+                  <div className="scale-[0.56] sm:scale-[0.72] lg:scale-100">
+                    <CircularText
+                      text="✦ Creative Designer ✦✦Full Stack Developer ✦✦  flexibility ✦"
+                      spinDuration={30}
+                      onHover="speedUp"
+                      className=""
+                    />
+                  </div>
                 </div>
 
                 {/* Main Image Container */}
